@@ -1,12 +1,5 @@
-import Artist from "./models/Artist";
-import Album from "./models/Album";
+import db from "./db";
 import Song from "./models/Song";
-//import User from "./User";
+import User from "./models/User";
 
-Artist.hasMany(Album);
-Album.belongsTo(Artist);
-
-Album.hasMany(Song);
-Song.belongsTo(Album);
-
-export { Artist, Album, Song };
+export { db, User, Song };

@@ -1,8 +1,6 @@
 import express, { Request, Response, NextFunction } from "express";
-import { Song, Artist, Album } from "../db";
+import { Song } from "../db";
 import { SongModelAttributes } from "../db/models/Song";
-import { ArtistModelAttributes } from "../db/models/Artist";
-import { AlbumModelAttributes } from "../db/models/Album";
 const router = express.Router();
 
 // GET /api/songs

@@ -1,17 +1,13 @@
 import db from "./db";
-//import User from "./User";
-import { Album, Artist, Song } from ".";
+import { Song, User } from ".";
 
-// All artists
-interface artist {
-  name: string;
-  genre: string;
+// All Users
+interface user {
+  username: string;
+  password: string;
 }
 
-// All albums
-interface album {
-  title: string;
-}
+const users: user[] = [{ username: "pada0867", password: "hatchet278" }];
 
 // All Songs
 interface song {
@@ -30,41 +26,15 @@ const seed = async () => {
   console.log("Starting seed...");
   await db.sync({ force: true });
   try {
-    console.log("adding artists");
-
-    const artists: artist[] = [
-      { name: "Filterheadz", genre: "Peak Time/Driving Techno" },
-      { name: "Anthony Parasole", genre: "Peak Time/Driving Techno" },
-      { name: "Jastice", genre: "Industrial Techno" },
-    ];
-
-    const [filterHeadz, anthonyParasole, jastice] = await Promise.all(
-      artists.map((artist) => Artist.create(artist))
-    );
-
-    console.log("adding albums");
-
-    const albums: album[] = [
-      { title: "Quantum EP" },
-      { title: "Full EFX" },
-      { title: "Acceleration Series" },
-    ];
-
-    const [filterHeadzAlbum, parasoleAlbum, jasticeAlbum] = await Promise.all(
-      albums.map((album) => Album.create(album))
-    );
-
     console.log("adding songs");
     const [quantumSong, headrushSong, goWithTheFlowSong] = await Promise.all(
       songs.map((song) => Song.create(song))
     );
 
-    filterHeadz.addAlbums(filterHeadzAlbum);
-    filterHeadzAlbum.addSongs(quantumSong);
-    anthonyParasole.addAlbums(parasoleAlbum);
-    parasoleAlbum.addSongs(headrushSong);
-    jastice.addAlbums(jasticeAlbum);
-    jasticeAlbum.addSongs(goWithTheFlowSong);
+    console.log("adding users");
+    const [jackPadalino] = await Promise.all(
+      users.map((user) => User.create(user))
+    );
   } catch (err) {
     console.log(err);
   }
