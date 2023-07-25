@@ -1,14 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-//import userReducer from "./userSlice";
-import artistsReducer from "./artistsSlice";
-import albumsReducer from "./albumSlice";
+import userReducer from "./userSlice";
 import songsReducer from "./songsSlice";
 
 const store = configureStore({
   reducer: {
-    //user: userReducer,
-    artists: artistsReducer,
-    albums: albumsReducer,
+    user: userReducer,
     songs: songsReducer,
   },
 });

@@ -6,7 +6,7 @@ const Songs = () => {
   //return <div></div>;
   return (
     <div>
-      <h1>This is the Songs page.</h1>
+      <h1>This is the songz page.</h1>
       {songs.map((song) => {
         return (
           <p key={song.id}>

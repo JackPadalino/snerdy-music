@@ -1,6 +1,5 @@
 import db from "../db/db";
-const DB: any = db;
-const { User } = DB;
+import User from "../db/models/User";
 
 import express, { NextFunction, Request, Response } from "express";
 const router = express.Router();
