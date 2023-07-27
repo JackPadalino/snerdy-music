@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { setUser } from "../../store/userSlice";
+import { setUser, setSongs } from "../../store/userSlice";
 import axios from "axios";
 
 const Login = () => {
@@ -21,13 +21,16 @@ const Login = () => {
   const loginWithToken = async () => {
     const token = window.localStorage.getItem("token");
     if (token) {
-      const response = await axios.get("/api/auth", {
+      const authResponse = await axios.get("/api/auth", {
         headers: {
           authorization: token,
         },
       });
-
-      dispatch(setUser(response.data));
+      const userResponse = await axios.get(
+        `/api/users/${authResponse.data.id}`
+      );
+      console.log(userResponse.data);
+      dispatch(setUser(userResponse.data));
     }
   };
 
