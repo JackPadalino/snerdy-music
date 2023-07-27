@@ -21,18 +21,18 @@ interface UserModel
     InferAttributes<UserModel>,
     InferCreationAttributes<UserModel>
   > {
-  //   id: CreationOptional<number>;
+  id: CreationOptional<number>;
   username: string;
   password: string;
   //   email: CreationOptional<string>;
 }
 
 const User = db.define<UserModel>("user", {
-  //   id: {
-  //     type: UUID,
-  //     primaryKey: true,
-  //     defaultValue: UUIDV4,
-  //   },
+  id: {
+    type: UUID,
+    primaryKey: true,
+    defaultValue: UUIDV4,
+  },
   username: {
     type: STRING,
     allowNull: false,

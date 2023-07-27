@@ -14,14 +14,28 @@ export interface SongModelAttributes
     InferAttributes<SongModelAttributes>,
     InferCreationAttributes<SongModelAttributes>
   > {
-  //id: CreationOptional<number>;
+  id: CreationOptional<number>;
   title: string;
+  artist: string;
   bpm: number;
   key: string;
 }
 
 const Song = db.define<SongModelAttributes>("song", {
+  id: {
+    type: UUID,
+    primaryKey: true,
+    defaultValue: UUIDV4,
+  },
   title: {
+    type: STRING,
+    allowNull: false,
+    validate: {
+      notEmpty: true,
+    },
+    unique: true,
+  },
+  artist: {
     type: STRING,
     allowNull: false,
     validate: {
