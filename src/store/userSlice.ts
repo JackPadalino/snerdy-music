@@ -1,21 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
-
-interface songType {
-  id: string;
-  title: string;
-  artist: string;
-  bpm: number;
-  key: string;
-}
-
-interface userInfoType {
-  id: string;
-  username: string;
-  songs: songType[];
-}
+import userType from "../../types/userType";
 
 interface initialStateType {
-  userInfo: userInfoType;
+  userInfo: userType;
 }
 
 const initialState: initialStateType = {
