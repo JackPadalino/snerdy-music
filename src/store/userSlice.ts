@@ -8,28 +8,30 @@ interface songType {
   key: string;
 }
 
-interface songListType {
+// interface songListType {
+//   songs: songType[];
+// }
+
+interface userInfoType {
+  id: string;
+  username: string;
   songs: songType[];
 }
 
-interface userType {
-  id: string;
-  username: string;
-}
-
 interface initialStateType {
-  user: userType;
-  songsList: songType;
+  userInfo: userInfoType;
+  // songsList: songListType;
 }
 
 const initialState: initialStateType = {
-  user: {
+  userInfo: {
     id: "",
     username: "",
-  },
-  songsList: {
     songs: [],
   },
+  // songsList: {
+  //   songs: [],
+  // },
 };
 
 export const userSlice = createSlice({
@@ -37,20 +39,23 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     setUser: (state, action) => {
-      state.user = action.payload;
+      state.userInfo = action.payload;
     },
-    setSongs: (state, action) => {
-      state.user.songs = action.payload;
-    },
+    // setSongs: (state, action) => {
+    //   state.songsList.songs = action.payload;
+    // },
     resetUser: (state) => {
-      state.user = {
+      state.userInfo = {
         id: "",
         username: "",
         songs: [],
       };
     },
+    // resetSongs: (state) => {
+    //   state.songsList.songs = [];
+    // },
   },
 });
 
-export const { setUser, setSongs, resetUser } = userSlice.actions;
+export const { setUser, resetUser } = userSlice.actions;
 export default userSlice.reducer;

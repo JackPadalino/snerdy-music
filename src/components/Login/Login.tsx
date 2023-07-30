@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { setUser, setSongs } from "../../store/userSlice";
+import { setUser } from "../../store/userSlice";
 import axios from "axios";
 
 const Login = () => {
@@ -29,7 +29,6 @@ const Login = () => {
       const userResponse = await axios.get(
         `/api/users/${authResponse.data.id}`
       );
-      console.log(userResponse.data);
       dispatch(setUser(userResponse.data));
     }
   };
@@ -39,7 +38,6 @@ const Login = () => {
     const response = await axios.post("/api/auth", credentials);
     const token = response.data;
     window.localStorage.setItem("token", token);
-
     loginWithToken();
   };
 

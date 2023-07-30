@@ -3,10 +3,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { resetUser } from "../../store/userSlice";
 import { RootState } from "../../store";
 import { Login } from "../index";
-import songsSlice from "../../store/songsSlice";
 
 const Home = () => {
-  const { user } = useSelector((state: RootState) => state.user);
+  const { userInfo } = useSelector((state: RootState) => state.user);
   const dispatch = useDispatch();
 
   const logout = () => {
@@ -14,28 +13,22 @@ const Home = () => {
     dispatch(resetUser());
   };
 
-  const displayUserInfo = () => {
-    console.log("displaying user songs");
-    console.log(user.songs);
-  };
-
-  useEffect(() => {
-    displayUserInfo();
-  }, []);
-
   return (
     <div>
-      {user.id && (
+      {userInfo.id && (
         <div>
           <h1>Home!!!!</h1>
-          <p>Welcome to Snerdy {user.username}!!</p>
-          {/* {user.songs.map((song) => {
-            <p>{song.title}</p>;
-          })} */}
+          <p>Welcome to Snerdy {userInfo.username}!!</p>
+          <p>Here are your songs:</p>
+          <ul>
+            {userInfo.songs.map((song) => (
+              <li key={song.id}>{song.title}</li>
+            ))}
+          </ul>
           <button onClick={logout}>Logout</button>
         </div>
       )}
-      {!user.id && <Login />}
+      {!userInfo.id && <Login />}
     </div>
   );
 };
