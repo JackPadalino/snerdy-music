@@ -8,10 +8,6 @@ interface songType {
   key: string;
 }
 
-// interface songListType {
-//   songs: songType[];
-// }
-
 interface userInfoType {
   id: string;
   username: string;
@@ -20,7 +16,6 @@ interface userInfoType {
 
 interface initialStateType {
   userInfo: userInfoType;
-  // songsList: songListType;
 }
 
 const initialState: initialStateType = {
@@ -29,9 +24,6 @@ const initialState: initialStateType = {
     username: "",
     songs: [],
   },
-  // songsList: {
-  //   songs: [],
-  // },
 };
 
 export const userSlice = createSlice({
@@ -41,9 +33,6 @@ export const userSlice = createSlice({
     setUser: (state, action) => {
       state.userInfo = action.payload;
     },
-    // setSongs: (state, action) => {
-    //   state.songsList.songs = action.payload;
-    // },
     resetUser: (state) => {
       state.userInfo = {
         id: "",
@@ -51,9 +40,6 @@ export const userSlice = createSlice({
         songs: [],
       };
     },
-    // resetSongs: (state) => {
-    //   state.songsList.songs = [];
-    // },
   },
 });
 
