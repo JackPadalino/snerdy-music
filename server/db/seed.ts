@@ -1,13 +1,15 @@
 import db from "./db";
 import { Song, User, UserSongs } from ".";
+import songType from "../../types/songType";
+import userType from "../../types/userType";
 
 // All Users
-interface user {
-  username: string;
-  password: string;
-}
+// interface user {
+//   username: string;
+//   password: string;
+// }
 
-const users: user[] = [
+const users: userType[] = [
   { username: "pada0867", password: "hatchet278" },
   { username: "modernboheme", password: "hatchet278" },
 ];
@@ -20,7 +22,7 @@ interface song {
   key: string;
 }
 
-const songs: song[] = [
+const songs: songType[] = [
   { title: "Quantum", artist: "Filterheadz", bpm: 132, key: "5A" },
   { title: "Headrush", artist: "Anthony Parasole", bpm: 130, key: "6B" },
   { title: "Go With the Flow", artist: "Narciss", bpm: 145, key: "5A" },
