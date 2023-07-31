@@ -15,15 +15,20 @@ const users: userType[] = [
 ];
 
 // All Songs
-interface song {
-  title: string;
-  artist: string;
-  bpm: number;
-  key: string;
-}
+// interface song {
+//   title: string;
+//   artist: string;
+//   bpm: number;
+//   key: string;
+// }
 
 const songs: songType[] = [
-  { title: "Quantum", artist: "Filterheadz", bpm: 132, key: "5A" },
+  {
+    title: "Quantum",
+    artist: "Filterheadz",
+    bpm: 132,
+    key: "5A",
+  },
   { title: "Headrush", artist: "Anthony Parasole", bpm: 130, key: "6B" },
   { title: "Go With the Flow", artist: "Narciss", bpm: 145, key: "5A" },
   {

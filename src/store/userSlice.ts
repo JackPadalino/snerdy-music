@@ -7,9 +7,10 @@ interface initialStateType {
 
 const initialState: initialStateType = {
   userInfo: {
-    id: "",
+    id: 0,
     username: "",
-    songs: [],
+    password: "",
+    // songs: [],
   },
 };
 
@@ -22,9 +23,10 @@ export const userSlice = createSlice({
     },
     resetUser: (state) => {
       state.userInfo = {
-        id: "",
+        id: 0,
         username: "",
-        songs: [],
+        password: "",
+        // songs: [],
       };
     },
   },

@@ -8,12 +8,14 @@ import {
   InferCreationAttributes,
   Model,
 } from "sequelize";
+import userType from "../../../types/userType";
+import songType from "../../../types/songType";
 
 interface ResponseError extends Error {
   status?: number;
 }
 
-const { STRING, UUID, UUIDV4 } = Sequelize;
+const { STRING, UUID, ARRAY, UUIDV4 } = Sequelize;
 const JWT = process.env.JWT;
 
 interface UserModel
@@ -21,9 +23,11 @@ interface UserModel
     InferAttributes<UserModel>,
     InferCreationAttributes<UserModel>
   > {
-  id: CreationOptional<number>;
+  id?: CreationOptional<number>;
   username: string;
   password: string;
+  // songs: songType[];
+
   //   email: CreationOptional<string>;
 }
 
@@ -48,6 +52,10 @@ const User = db.define<UserModel>("user", {
       notEmpty: true,
     },
   },
+  // songs: {
+  //   type: Sequelize.ARRAY(),
+  //   allowNull: false,
+  // },
   //   email: {
   //     type: STRING,
   //   },

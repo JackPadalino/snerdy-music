@@ -1,7 +1,8 @@
 import songType from "./songType";
 
 export default interface userType {
-  id?: string;
+  id?: number;
   username: string;
-  songs: songType[];
+  password: string;
+  // songs: songType[];
 }
