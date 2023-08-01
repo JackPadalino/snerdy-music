@@ -8,8 +8,6 @@ import {
   InferCreationAttributes,
   Model,
 } from "sequelize";
-import userType from "../../../types/userType";
-import songType from "../../../types/songType";
 
 interface ResponseError extends Error {
   status?: number;

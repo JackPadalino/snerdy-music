@@ -19,6 +19,7 @@ export interface SongModelAttributes
   artist: string;
   bpm: number;
   key: string;
+  filepath: string;
 }
 
 const Song = db.define<SongModelAttributes>("song", {
@@ -41,7 +42,6 @@ const Song = db.define<SongModelAttributes>("song", {
     validate: {
       notEmpty: true,
     },
-    unique: true,
   },
   bpm: {
     type: INTEGER,
@@ -80,6 +80,14 @@ const Song = db.define<SongModelAttributes>("song", {
       notEmpty: true,
     },
     unique: false,
+  },
+  filepath: {
+    type: STRING,
+    allowNull: false,
+    validate: {
+      notEmpty: true,
+    },
+    unique: true,
   },
 });
 

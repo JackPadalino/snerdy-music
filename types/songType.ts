@@ -4,4 +4,5 @@ export default interface songType {
   artist: string;
   bpm: number;
   key: string;
+  filepath: string;
 }

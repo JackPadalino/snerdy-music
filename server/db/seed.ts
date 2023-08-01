@@ -10,18 +10,39 @@ const users: userType[] = [
 
 const songs: songType[] = [
   {
-    title: "Quantum",
-    artist: "Filterheadz",
-    bpm: 132,
-    key: "5A",
-  },
-  { title: "Headrush", artist: "Anthony Parasole", bpm: 130, key: "6B" },
-  { title: "Go With the Flow", artist: "Narciss", bpm: 145, key: "5A" },
-  {
-    title: "To the Moon and Back",
-    artist: "Elad Magdasi",
+    title: "Booty Shake",
+    artist: "Beau Didier",
     bpm: 140,
-    key: "9B",
+    key: "5A",
+    filepath: "music/Booty Shake.mp3",
+  },
+  {
+    title: "Colour 1",
+    artist: "Beau Didier",
+    bpm: 140,
+    key: "5A",
+    filepath: "music/Colour 1.mp3",
+  },
+  {
+    title: "Colour 2",
+    artist: "Beau Didier",
+    bpm: 140,
+    key: "5A",
+    filepath: "music/Colour 2.mp3",
+  },
+  {
+    title: "Colour 3",
+    artist: "Beau Didier",
+    bpm: 140,
+    key: "5A",
+    filepath: "music/Colour 3.mp3",
+  },
+  {
+    title: "Colour 4",
+    artist: "Beau Didier",
+    bpm: 140,
+    key: "5A",
+    filepath: "music/Colour 4.mp3",
   },
 ];
 
