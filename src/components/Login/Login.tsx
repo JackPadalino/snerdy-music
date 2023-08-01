@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../store/userSlice";
+import { setSongs } from "../../store/songsSlice";
 import axios from "axios";
 
 const Login = () => {
@@ -30,6 +31,7 @@ const Login = () => {
         `/api/users/${authResponse.data.id}`
       );
       dispatch(setUser(userResponse.data));
+      dispatch(setSongs(userResponse.data.songs));
     }
   };
 

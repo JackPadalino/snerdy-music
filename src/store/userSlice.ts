@@ -22,12 +22,7 @@ export const userSlice = createSlice({
       state.userInfo = action.payload;
     },
     resetUser: (state) => {
-      state.userInfo = {
-        id: 0,
-        username: "",
-        password: "",
-        // songs: [],
-      };
+      state.userInfo = initialState.userInfo;
     },
   },
 });
