@@ -10,7 +10,6 @@ const initialState: initialStateType = {
     id: 0,
     username: "",
     password: "",
-    // songs: [],
   },
 };
 

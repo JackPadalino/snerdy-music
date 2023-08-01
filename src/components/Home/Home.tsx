@@ -18,7 +18,9 @@ const Home = () => {
 
   return (
     <div>
-      {userInfo.id && (
+      {!userInfo.id ? (
+        <Login />
+      ) : (
         <div>
           <h1>Home!!!!</h1>
           <p>Welcome to Snerdy {userInfo.username}!!</p>
@@ -31,7 +33,6 @@ const Home = () => {
           <button onClick={logout}>Logout</button>
         </div>
       )}
-      {!userInfo.id && <Login />}
     </div>
   );
 };

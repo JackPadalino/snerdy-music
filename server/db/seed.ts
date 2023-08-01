@@ -3,24 +3,10 @@ import { Song, User, UserSongs } from ".";
 import songType from "../../types/songType";
 import userType from "../../types/userType";
 
-// All Users
-// interface user {
-//   username: string;
-//   password: string;
-// }
-
 const users: userType[] = [
-  { username: "pada0867", password: "hatchet278" },
-  { username: "modernboheme", password: "hatchet278" },
+  { username: "pada0867", password: "abc123" },
+  { username: "modernboheme", password: "abc123" },
 ];
-
-// All Songs
-// interface song {
-//   title: string;
-//   artist: string;
-//   bpm: number;
-//   key: string;
-// }
 
 const songs: songType[] = [
   {

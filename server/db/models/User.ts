@@ -52,13 +52,6 @@ const User = db.define<UserModel>("user", {
       notEmpty: true,
     },
   },
-  // songs: {
-  //   type: Sequelize.ARRAY(),
-  //   allowNull: false,
-  // },
-  //   email: {
-  //     type: STRING,
-  //   },
 });
 
 User.addHook("beforeSave", async (user: UserModel) => {

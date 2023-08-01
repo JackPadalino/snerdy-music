@@ -30,7 +30,12 @@ const Login = () => {
       const userResponse = await axios.get(
         `/api/users/${authResponse.data.id}`
       );
-      dispatch(setUser(userResponse.data));
+      dispatch(
+        setUser({
+          id: userResponse.data.id,
+          username: userResponse.data.username,
+        })
+      );
       dispatch(setSongs(userResponse.data.songs));
     }
   };
