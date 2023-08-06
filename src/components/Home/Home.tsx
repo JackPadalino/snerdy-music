@@ -79,14 +79,14 @@ const Home = () => {
         <Login />
       ) : (
         <div>
-          <h1>Home!!!!</h1>
+          {/* <h1>Home!!!!</h1> */}
           <p>Welcome to Snerdy {userInfo.username}!!</p>
-          <p>Here are your songs:</p>
+          {/* <p>Here are your songs:</p>
           <ul>
             {userSongs.map((song) => (
               <li key={song.id}>{song.title}</li>
             ))}
-          </ul>
+          </ul> */}
           <button onClick={logout}>Logout</button>
           <form id="form" onSubmit={uploadFiles} encType="multipart/form-data">
             <div className="input-group">
