@@ -9,7 +9,11 @@ import { Login } from "../index";
 const Home = () => {
   const { userInfo } = useSelector((state: RootState) => state.user);
   const { userSongs } = useSelector((state: RootState) => state.songs);
-  const song = useRef("");
+  const title = useRef("");
+  const artist = useRef("");
+  const bpm = useRef("");
+  const key = useRef("");
+  const file = useRef("");
   const dispatch = useDispatch();
 
   const logout = () => {
@@ -18,22 +22,42 @@ const Home = () => {
     dispatch(resetSongs());
   };
 
-  const handleSongChange = (e: any) => {
-    song.current = e.target.files[0];
+  const handleTitleChange = (e: any) => {
+    title.current = e.target.value;
+  };
+
+  const handleArtistChange = (e: any) => {
+    artist.current = e.target.value;
+  };
+
+  const handleBpmChange = (e: any) => {
+    bpm.current = e.target.value;
+  };
+
+  const handleKeyChange = (e: any) => {
+    key.current = e.target.value;
+  };
+
+  const handleFileChange = (e: any) => {
+    file.current = e.target.files[0];
   };
 
   const uploadFiles = async (e: any) => {
-    //e.preventDefault();
+    e.preventDefault();
     try {
       const body = new FormData();
-      body.append("song", song.current);
+      body.append("title", title.current);
+      body.append("artist", artist.current);
+      body.append("bpm", bpm.current);
+      body.append("key", key.current);
+      body.append("file", file.current);
       // await axios.post(`/api/songs`, body, {
       //   headers: {
       //     "Content-Type": "multipart/form-data",
       //   },
       // });
       await axios.post(`/api/songs`, body);
-      song.current = "";
+      file.current = "";
     } catch (error) {
       console.error("Error uploading file:", error);
     }
@@ -56,12 +80,40 @@ const Home = () => {
           <button onClick={logout}>Logout</button>
           <form id="form" onSubmit={uploadFiles} encType="multipart/form-data">
             <div className="input-group">
-              <label htmlFor="song">Select file</label>
+              <label htmlFor="title">Song title</label>
               <input
-                id="song"
-                name="song"
+                id="title"
+                name="title"
+                type="text"
+                onChange={handleTitleChange}
+              />
+              <label htmlFor="artist">Artist</label>
+              <input
+                id="artist"
+                name="artist"
+                type="text"
+                onChange={handleArtistChange}
+              />
+              <label htmlFor="bpm">BPM</label>
+              <input
+                id="bpm"
+                name="bpm"
+                type="text"
+                onChange={handleBpmChange}
+              />
+              <label htmlFor="key">Key</label>
+              <input
+                id="key"
+                name="key"
+                type="text"
+                onChange={handleKeyChange}
+              />
+              <label htmlFor="file">Select file</label>
+              <input
+                id="file"
+                name="file"
                 type="file"
-                onChange={handleSongChange}
+                onChange={handleFileChange}
               />
             </div>
             <button className="submit-btn" type="submit">

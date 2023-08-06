@@ -46,9 +46,11 @@ const upload = multer({
   storage,
 });
 
-router.post("/", upload.single("song"), function (req: any, res: any) {
+router.post("/", upload.single("file"), function (req: any, res: any) {
   // req.file is the name of your file in the form above, here 'uploaded_file'
   // req.body will hold the text fields, if there were any
+  console.log(req.file);
+  console.log(req.body);
 });
 
 export default router;
