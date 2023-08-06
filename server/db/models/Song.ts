@@ -19,7 +19,7 @@ export interface SongModelAttributes
   artist: string;
   bpm: number;
   key: string;
-  filepath: string | undefined;
+  filepath: string;
 }
 
 const Song = db.define<SongModelAttributes>("song", {
