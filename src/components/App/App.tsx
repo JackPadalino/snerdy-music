@@ -4,6 +4,7 @@ import { setUser } from "../../store/userSlice";
 
 import { useAppDispatch } from "../../store/hooks";
 import RouterComponent from "../../components/RouterComponent";
+import Nav from "../../components/Nav/Nav";
 //import "./style.css";
 
 const App = () => {
@@ -29,6 +30,7 @@ const App = () => {
 
   return (
     <div className="component">
+      <Nav />
       <RouterComponent />
     </div>
   );

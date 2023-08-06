@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../store/userSlice";
 import { setSongs } from "../../store/songsSlice";
@@ -6,6 +7,8 @@ import axios from "axios";
 
 const Login = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [credentials, setCredentials] = useState({
     username: "",
     password: "",
@@ -37,6 +40,7 @@ const Login = () => {
         })
       );
       dispatch(setSongs(userResponse.data.songs));
+      navigate("/");
     }
   };
 
@@ -50,7 +54,7 @@ const Login = () => {
 
   return (
     <div>
-      <h2>Login</h2>
+      <h1>Login</h1>
       <form onSubmit={attemptLogin}>
         <input
           placeholder="username"

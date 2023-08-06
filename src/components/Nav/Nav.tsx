@@ -1,16 +1,39 @@
-// import React, { useEffect } from "react";
-// import { Link } from "react-router-dom";
-// import "./Nav.css";
+import { Link, useNavigate } from "react-router-dom";
+import React, { SyntheticEvent, useRef, useState, useEffect } from "react";
+import axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
+import { resetUser } from "../../store/userSlice";
+import songsSlice, { resetSongs } from "../../store/songsSlice";
+import { RootState } from "../../store";
+import { Login } from "../index";
+import "./Nav.css";
 
-// const Nav = () => {
-//   return (
-//     <div id="Nav-div">
-//       <Link to="/">Home</Link>
-//       <Link to="/artists">Artists</Link>
-//       <Link to="/albums">Albums</Link>
-//       <Link to="/songs">Songs</Link>
-//     </div>
-//   );
-// };
+const Nav = () => {
+  const token = window.localStorage.getItem("token");
 
-// export default Nav;
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const logout = () => {
+    window.localStorage.removeItem("token");
+    dispatch(resetUser());
+    dispatch(resetSongs());
+    navigate("/login");
+  };
+
+  return (
+    <div id="Nav-div">
+      {token && (
+        <div>
+          <Link to="/">Home</Link>
+          <Link to="/upload">Upload</Link>
+          <Link to="/music">Music</Link>
+          {/* <Link to="/library">My Library</Link> */}
+          <button onClick={logout}>Logout</button>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default Nav;
