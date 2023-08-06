@@ -98,7 +98,7 @@ const Home = () => {
               <input
                 id="bpm"
                 name="bpm"
-                type="text"
+                type="number"
                 onChange={handleBpmChange}
               />
               <label htmlFor="key">Key</label>

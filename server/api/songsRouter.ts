@@ -46,11 +46,34 @@ const upload = multer({
   storage,
 });
 
-router.post("/", upload.single("file"), function (req: any, res: any) {
-  // req.file is the name of your file in the form above, here 'uploaded_file'
-  // req.body will hold the text fields, if there were any
-  console.log(req.file);
-  console.log(req.body);
-});
+router.post(
+  "/",
+  upload.single("file"),
+  async (req: Request, res: Response, next: NextFunction) => {
+    // req.file is the name of your file in the form above, here 'uploaded_file'
+    // req.body will hold the text fields, if there were any
+    try {
+      const songData = {
+        title: req.body.title,
+        artist: req.body.artist,
+        bpm: req.body.bpm,
+        key: req.body.key,
+        filepath: req.file?.path,
+      };
+      await Song.create({
+        title: songData.title,
+        artist: songData.artist,
+        bpm: songData.bpm,
+        key: songData.key,
+        filepath: songData.filepath,
+      });
+      res.sendStatus(200);
+    } catch (err) {
+      console.log(err);
+    }
+    // console.log(req.body);
+    // console.log(req.file?.path);
+  }
+);
 
 export default router;
