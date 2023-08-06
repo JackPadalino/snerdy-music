@@ -11,7 +11,7 @@ const Home = () => {
   const { userSongs } = useSelector((state: RootState) => state.songs);
   const title = useRef("");
   const artist = useRef("");
-  const bpm = useRef("");
+  // const bpm = useRef(0);
   const key = useRef("");
   const file = useRef("");
   const dispatch = useDispatch();
@@ -30,9 +30,10 @@ const Home = () => {
     artist.current = e.target.value;
   };
 
-  const handleBpmChange = (e: any) => {
-    bpm.current = e.target.value;
-  };
+  // const handleBpmChange = (e: any) => {
+  //   const parsedBpm = parseInt(e.target.value, 10);
+  //   bpm.current = isNaN(parsedBpm) ? 0 : parsedBpm;
+  // };
 
   const handleKeyChange = (e: any) => {
     key.current = e.target.value;
@@ -45,11 +46,20 @@ const Home = () => {
   const uploadFiles = async (e: any) => {
     e.preventDefault();
     try {
+      // console.log(typeof bpm.current);
+      // console.log(bpm.current);
       const body = new FormData();
+      // const body = {
+      //   title: title.current,
+      //   artist: artist.current,
+      //   bpm: bpm.current,
+      //   key: key.current,
+      //   file: file.current,
+      // };
       body.append("title", title.current);
       body.append("artist", artist.current);
-      body.append("bpm", bpm.current);
-      body.append("key", key.current);
+      // body.append("bpm", bpm.current);
+      // body.append("key", key.current);
       body.append("file", file.current);
       // await axios.post(`/api/songs`, body, {
       //   headers: {
@@ -94,20 +104,20 @@ const Home = () => {
                 type="text"
                 onChange={handleArtistChange}
               />
-              <label htmlFor="bpm">BPM</label>
+              {/* <label htmlFor="bpm">BPM</label>
               <input
                 id="bpm"
                 name="bpm"
                 type="number"
                 onChange={handleBpmChange}
-              />
-              <label htmlFor="key">Key</label>
+              /> */}
+              {/* <label htmlFor="key">Key</label>
               <input
                 id="key"
                 name="key"
                 type="text"
                 onChange={handleKeyChange}
-              />
+              /> */}
               <label htmlFor="file">Select file</label>
               <input
                 id="file"

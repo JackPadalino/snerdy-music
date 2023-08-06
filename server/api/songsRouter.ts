@@ -55,8 +55,8 @@ router.post(
         await Song.create({
           title: req.body.title,
           artist: req.body.artist,
-          bpm: req.body.bpm,
-          key: req.body.key,
+          // bpm: req.body.bpm,
+          // key: req.body.key,
           filepath: req.file.path,
         });
         res.sendStatus(200);
