@@ -3,6 +3,21 @@ import { Song } from "../db";
 import { SongModelAttributes } from "../db/models/Song";
 const router = express.Router();
 
+const path = require("path");
+
+// const multer = require("multer");
+
+// const storage = multer.diskStorage({
+//   filename: function (req: any, file: any, cb: any) {
+//     cb(null, file.originalname);
+//   },
+//   destination: function (req: any, file: any, cb: any) {
+//     cb(null, path.resolve(__dirname, "../../music/"));
+//   },
+// });
+
+// const upload = multer({ storage });
+
 // GET /api/songs - Get all songs from DB
 router.get("/", async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -16,6 +31,41 @@ router.get("/", async (req: Request, res: Response, next: NextFunction) => {
     res.sendStatus(404);
     next(err);
   }
+});
+
+// POST /api/songs - Post new song to DB
+// router.post(
+//   "/",
+//   upload.single("song"),
+//   async (req: Request, res: Response, next: NextFunction) => {
+//     try {
+//       // At this point, the uploaded file will be available as req.file
+//       // You can access its details like req.file.originalname, req.file.path, etc.
+//       res.send({ message: "Successfully uploaded file" });
+//     } catch (err) {
+//       res.sendStatus(404);
+//       next(err);
+//     }
+//   }
+// );
+
+const multer = require("multer");
+
+const storage = multer.diskStorage({
+  destination: "./music",
+  filename: (req: any, file: any, cb: any) => {
+    cb(null, file.originalname);
+  },
+});
+
+const upload = multer({
+  preservePath: true,
+  storage,
+});
+
+router.post("/", upload.single("song"), function (req: any, res: any) {
+  // req.file is the name of your file in the form above, here 'uploaded_file'
+  // req.body will hold the text fields, if there were any
 });
 
 export default router;
