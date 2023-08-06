@@ -1,12 +1,13 @@
 import React, { SyntheticEvent, useRef, useState, useEffect } from "react";
 import axios from "axios";
-import { useSelector, useDispatch } from "react-redux";
+import { useAppSelector, useAppDispatch } from "../../store/hooks";
 import { resetUser } from "../../store/userSlice";
-import songsSlice, { resetSongs } from "../../store/songsSlice";
+import { setAllSongs, resetSongs } from "../../store/songsSlice";
 import { RootState } from "../../store";
 
 const Home = () => {
   const token = window.localStorage.getItem("token");
+  const dispatch = useAppDispatch();
   const title = useRef("");
   const artist = useRef("");
   // const bpm = useRef(0);
@@ -37,8 +38,6 @@ const Home = () => {
   const uploadFiles = async (e: any) => {
     e.preventDefault();
     try {
-      // console.log(typeof bpm.current);
-      // console.log(bpm.current);
       const body = new FormData();
       // const body = {
       //   title: title.current,
@@ -59,6 +58,9 @@ const Home = () => {
       // });
       await axios.post(`/api/songs`, body);
       file.current = "";
+      //fetch all songs
+      const songResponse = await axios.get("/api/songs");
+      dispatch(setAllSongs(songResponse.data));
     } catch (error) {
       console.error("Error uploading file:", error);
     }
