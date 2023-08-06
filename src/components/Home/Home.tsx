@@ -19,20 +19,20 @@ const Home = () => {
   };
 
   const handleSongChange = (e: any) => {
-    song.current = e.target.value;
+    song.current = e.target.files[0];
   };
 
   const uploadFiles = async (e: any) => {
-    e.preventDefault();
-
+    //e.preventDefault();
     try {
-      const formData = new FormData();
-      formData.append("song", song.current);
-      await axios.post(`/api/songs`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      const body = new FormData();
+      body.append("song", song.current);
+      // await axios.post(`/api/songs`, body, {
+      //   headers: {
+      //     "Content-Type": "multipart/form-data",
+      //   },
+      // });
+      await axios.post(`/api/songs`, body);
       song.current = "";
     } catch (error) {
       console.error("Error uploading file:", error);
@@ -54,7 +54,7 @@ const Home = () => {
             ))}
           </ul>
           <button onClick={logout}>Logout</button>
-          {/* <form id="form" encType="multipart/form-data" onSubmit={uploadFiles}>
+          <form id="form" onSubmit={uploadFiles} encType="multipart/form-data">
             <div className="input-group">
               <label htmlFor="song">Select file</label>
               <input
@@ -67,12 +67,12 @@ const Home = () => {
             <button className="submit-btn" type="submit">
               Upload
             </button>
-          </form> */}
-          <form action="/api/songs" method="POST" encType="multipart/form-data">
+          </form>
+          {/* <form action="/api/songs" method="POST" encType="multipart/form-data">
             <input type="file" name="song" />
 
             <button type="submit">Upload</button>
-          </form>
+          </form> */}
         </div>
       )}
     </div>

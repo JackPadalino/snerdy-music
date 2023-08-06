@@ -2,8 +2,8 @@ import express, { Request, Response, NextFunction } from "express";
 import { Song } from "../db";
 import { SongModelAttributes } from "../db/models/Song";
 const router = express.Router();
-
 const path = require("path");
+const multer = require("multer");
 
 // const multer = require("multer");
 
@@ -33,24 +33,7 @@ router.get("/", async (req: Request, res: Response, next: NextFunction) => {
   }
 });
 
-// POST /api/songs - Post new song to DB
-// router.post(
-//   "/",
-//   upload.single("song"),
-//   async (req: Request, res: Response, next: NextFunction) => {
-//     try {
-//       // At this point, the uploaded file will be available as req.file
-//       // You can access its details like req.file.originalname, req.file.path, etc.
-//       res.send({ message: "Successfully uploaded file" });
-//     } catch (err) {
-//       res.sendStatus(404);
-//       next(err);
-//     }
-//   }
-// );
-
-const multer = require("multer");
-
+// Uploading files with multer
 const storage = multer.diskStorage({
   destination: "./music",
   filename: (req: any, file: any, cb: any) => {
