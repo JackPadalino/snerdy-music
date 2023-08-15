@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../store/userSlice";
-import { setSongs } from "../../store/songsSlice";
+import { setAllSongs, setSongs } from "../../store/songsSlice";
 import axios from "axios";
 
 const Login = () => {
@@ -25,11 +25,16 @@ const Login = () => {
   const loginWithToken = async () => {
     const token = window.localStorage.getItem("token");
     if (token) {
+      //fetch the user
       const authResponse = await axios.get("/api/auth", {
         headers: {
           authorization: token,
         },
       });
+      //fetch all songs
+      const songResponse = await axios.get("/api/songs");
+      dispatch(setAllSongs(songResponse.data));
+      //fetch all songs associated with the logged in user
       const userResponse = await axios.get(
         `/api/users/${authResponse.data.id}`
       );
