@@ -5,18 +5,23 @@ const router = express.Router();
 const path = require("path");
 const multer = require("multer");
 
-// const multer = require("multer");
-
-// const storage = multer.diskStorage({
-//   filename: function (req: any, file: any, cb: any) {
-//     cb(null, file.originalname);
-//   },
-//   destination: function (req: any, file: any, cb: any) {
-//     cb(null, path.resolve(__dirname, "../../music/"));
-//   },
-// });
-
-// const upload = multer({ storage });
+router.get(
+  "/:songId/download",
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const songId = req.params.songId;
+      const song = await Song.findByPk(songId);
+      if (song) {
+        const filePath = path.join(__dirname, "../..", song.filepath);
+        res.download(filePath, `${song.title}.mp3`); // Set the desired filename
+      } else {
+        res.sendStatus(404);
+      }
+    } catch (err) {
+      res.sendStatus(500);
+    }
+  }
+);
 
 // GET /api/songs - Get all songs from DB
 router.get("/", async (req: Request, res: Response, next: NextFunction) => {
