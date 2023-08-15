@@ -33,6 +33,16 @@ router.get("/", async (req: Request, res: Response, next: NextFunction) => {
   }
 });
 
+// Define a custom file filter for mp3 files
+const fileFilter = (req: any, file: any, cb: any) => {
+  if (file.mimetype === "audio/mpeg") {
+    // Check for the correct MIME type for mp3 files
+    cb(null, true); // Accept the file
+  } else {
+    cb(new Error("Invalid file type. Only mp3 files are allowed."), false); // Reject the file
+  }
+};
+
 // Uploading files with multer
 const storage = multer.diskStorage({
   destination: "./music",
@@ -44,6 +54,7 @@ const storage = multer.diskStorage({
 const upload = multer({
   preservePath: true,
   storage,
+  fileFilter,
 });
 
 router.post(
