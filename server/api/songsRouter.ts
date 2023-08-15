@@ -5,18 +5,23 @@ const router = express.Router();
 const path = require("path");
 const multer = require("multer");
 
-// const multer = require("multer");
-
-// const storage = multer.diskStorage({
-//   filename: function (req: any, file: any, cb: any) {
-//     cb(null, file.originalname);
-//   },
-//   destination: function (req: any, file: any, cb: any) {
-//     cb(null, path.resolve(__dirname, "../../music/"));
-//   },
-// });
-
-// const upload = multer({ storage });
+router.get(
+  "/:songId/download",
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const songId = req.params.songId;
+      const song = await Song.findByPk(songId);
+      if (song) {
+        const filePath = path.join(__dirname, "../..", song.filepath);
+        res.download(filePath, `${song.title}.mp3`); // Set the desired filename
+      } else {
+        res.sendStatus(404);
+      }
+    } catch (err) {
+      res.sendStatus(500);
+    }
+  }
+);
 
 // GET /api/songs - Get all songs from DB
 router.get("/", async (req: Request, res: Response, next: NextFunction) => {
@@ -33,6 +38,16 @@ router.get("/", async (req: Request, res: Response, next: NextFunction) => {
   }
 });
 
+// Define a custom file filter for mp3 files
+const fileFilter = (req: any, file: any, cb: any) => {
+  if (file.mimetype === "audio/mpeg") {
+    // Check for the correct MIME type for mp3 files
+    cb(null, true); // Accept the file
+  } else {
+    cb(new Error("Invalid file type. Only mp3 files are allowed."), false); // Reject the file
+  }
+};
+
 // Uploading files with multer
 const storage = multer.diskStorage({
   destination: "./music",
@@ -44,6 +59,7 @@ const storage = multer.diskStorage({
 const upload = multer({
   preservePath: true,
   storage,
+  fileFilter,
 });
 
 router.post(
