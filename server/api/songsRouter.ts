@@ -62,18 +62,24 @@ const upload = multer({
   fileFilter,
 });
 
+// extending the Request interface to include 'file' for multer
+interface MulterRequest extends Request {
+  file: any;
+}
+
 router.post(
   "/",
   upload.single("file"),
   async (req: Request, res: Response, next: NextFunction) => {
-    if (req.file) {
+    const documentFile = (req as MulterRequest).file;
+    if (documentFile) {
       try {
         await Song.create({
           title: req.body.title,
           artist: req.body.artist,
           // bpm: req.body.bpm,
           // key: req.body.key,
-          filepath: req.file.path,
+          filepath: documentFile.path,
         });
         res.sendStatus(200);
       } catch (err) {

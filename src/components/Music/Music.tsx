@@ -7,7 +7,7 @@ const Music = () => {
   const token = window.localStorage.getItem("token");
   const songs = useAppSelector((state) => state.songs.allSongs);
 
-  const downloadSong = async (songId: any) => {
+  const downloadSong = async (songId: any, songTitle: string) => {
     try {
       // Send a GET request to the server to download the song
       const response = await axios.get(`/api/songs/${songId}/download`, {
@@ -19,7 +19,7 @@ const Music = () => {
       const link = document.createElement("a");
       link.href = url;
       // Set the "download" attribute and filename for the download
-      link.setAttribute("download", "song.mp3"); // Set the desired filename
+      link.setAttribute("download", `${songTitle}.mp3`); // Set the desired filename
       // Append the <a> element to the DOM and trigger a click event
       document.body.appendChild(link);
       link.click();
@@ -41,7 +41,7 @@ const Music = () => {
             {song.title} - {song.artist}
             <button
               className="downloadButton"
-              onClick={() => downloadSong(song.id)}
+              onClick={() => downloadSong(song.id, song.title)}
             >
               Download
             </button>
