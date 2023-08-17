@@ -31,6 +31,29 @@ const Music = () => {
     }
   };
 
+  const checkout = async (
+    songId: any,
+    songTitle: string,
+    songArtist: string
+  ) => {
+    const body = {
+      songId: songId,
+      songTitle: songTitle,
+      songArtist: songArtist,
+    };
+    try {
+      const response = await axios.post(
+        "/api/checkout/create-checkout-session",
+        body
+      );
+      console.log(response.data);
+      // Redirect the user's browser to the checkout session URL
+      window.location.href = response.data.url;
+    } catch (error) {
+      console.error("Error during checkout:", error);
+    }
+  };
+
   if (!token) return <p>Sorry! Something went wrong!</p>;
   return (
     <div>
@@ -39,15 +62,19 @@ const Music = () => {
         {songs.map((song) => (
           <li key={song.id}>
             {song.title} - {song.artist}
-            <button
+            {/* <button
               className="downloadButton"
               onClick={() => downloadSong(song.id, song.title)}
             >
               Download
+            </button> */}
+            <button onClick={() => checkout(song.id, song.title, song.artist)}>
+              Buy
             </button>
           </li>
         ))}
       </ul>
+      {/* <button onClick={() => checkout()}>Checkout</button> */}
     </div>
   );
 };
