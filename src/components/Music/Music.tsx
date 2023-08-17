@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
+import songType from "../../../types/songType";
 import "./Music.css";
 
 const Music = () => {
@@ -59,7 +60,7 @@ const Music = () => {
     <div>
       <h1>Songs for download</h1>
       <ul>
-        {songs.map((song: any) => (
+        {songs.map((song: songType) => (
           <li key={song.id}>
             {song.title} - {song.artist}
             {/* <button
