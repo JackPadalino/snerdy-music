@@ -34,6 +34,7 @@
     "react-router": "^6.14.2",
     "sequelize": "^6.32.1",
     "sequelize-typescript": "^2.1.5",
+    "stripe": "^13.0.0",
     "ts-node": "^10.9.1",
     "volleyball": "^1.5.1"
   },

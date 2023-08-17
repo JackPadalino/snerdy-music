@@ -31,6 +31,17 @@ const Music = () => {
     }
   };
 
+  const checkout = async () => {
+    try {
+      const response = await axios.get("/api/checkout/create-checkout-session");
+
+      // Redirect the user's browser to the checkout session URL
+      window.location.href = response.data.url;
+    } catch (error) {
+      console.error("Error during checkout:", error);
+    }
+  };
+
   if (!token) return <p>Sorry! Something went wrong!</p>;
   return (
     <div>
@@ -48,6 +59,7 @@ const Music = () => {
           </li>
         ))}
       </ul>
+      <button onClick={() => checkout()}>Checkout</button>
     </div>
   );
 };
