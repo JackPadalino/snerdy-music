@@ -59,7 +59,7 @@ const Music = () => {
     <div>
       <h1>Songs for download</h1>
       <ul>
-        {songs.map((song) => (
+        {songs.map((song: any) => (
           <li key={song.id}>
             {song.title} - {song.artist}
             {/* <button
