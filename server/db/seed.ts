@@ -23,27 +23,27 @@ const songs: songType[] = [
     // key: "5A",
     filepath: "music/Colour 1.mp3",
   },
-  {
-    title: "Colour 2",
-    artist: "Beau Didier",
-    // bpm: 140,
-    // key: "5A",
-    filepath: "music/Colour 2.mp3",
-  },
-  {
-    title: "Colour 3",
-    artist: "Beau Didier",
-    // bpm: 140,
-    // key: "5A",
-    filepath: "music/Colour 3.mp3",
-  },
-  {
-    title: "Colour 4",
-    artist: "Beau Didier",
-    // bpm: 140,
-    // key: "5A",
-    filepath: "music/Colour 4.mp3",
-  },
+  // {
+  //   title: "Colour 2",
+  //   artist: "Beau Didier",
+  //   // bpm: 140,
+  //   // key: "5A",
+  //   filepath: "music/Colour 2.mp3",
+  // },
+  // {
+  //   title: "Colour 3",
+  //   artist: "Beau Didier",
+  //   // bpm: 140,
+  //   // key: "5A",
+  //   filepath: "music/Colour 3.mp3",
+  // },
+  // {
+  //   title: "Colour 4",
+  //   artist: "Beau Didier",
+  //   // bpm: 140,
+  //   // key: "5A",
+  //   filepath: "music/Colour 4.mp3",
+  // },
 ];
 
 const seed = async () => {
@@ -51,8 +51,9 @@ const seed = async () => {
   await db.sync({ force: true });
   try {
     console.log("Adding songs...");
-    const [quantumSong, headrushSong, goWithTheFlowSong, toTheMoonAndBackSong] =
-      await Promise.all(songs.map((song) => Song.create(song)));
+    const [bootyShakeSong, Colour1Song] = await Promise.all(
+      songs.map((song) => Song.create(song))
+    );
 
     console.log("Adding users");
     const [jackPadalino, jasmineHarrison] = await Promise.all(
@@ -60,11 +61,11 @@ const seed = async () => {
     );
     console.log("Associating users with songs...");
     const userSongsList = [
-      { userId: jackPadalino.id, songId: quantumSong.id },
-      { userId: jackPadalino.id, songId: headrushSong.id },
-      { userId: jackPadalino.id, songId: toTheMoonAndBackSong.id },
-      { userId: jasmineHarrison.id, songId: goWithTheFlowSong.id },
-      { userId: jasmineHarrison.id, songId: quantumSong.id },
+      { userId: jackPadalino.id, songId: bootyShakeSong.id },
+      { userId: jackPadalino.id, songId: Colour1Song.id },
+      // { userId: jackPadalino.id, songId: toTheMoonAndBackSong.id },
+      // { userId: jasmineHarrison.id, songId: goWithTheFlowSong.id },
+      // { userId: jasmineHarrison.id, songId: quantumSong.id },
     ];
     await Promise.all(
       userSongsList.map((userSong) => UserSongs.create(userSong))
