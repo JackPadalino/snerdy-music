@@ -2,6 +2,8 @@ import express, { Request, Response, NextFunction } from "express";
 import { Song } from "../db";
 const router = express.Router();
 const path = require("path");
+import dotenv from "dotenv";
+dotenv.config();
 const stripe = require("stripe")(process.env.STRIPE_API_KEY);
 
 router.post(
