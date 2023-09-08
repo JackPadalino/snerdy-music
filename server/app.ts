@@ -7,6 +7,7 @@ const app: Express = express();
 
 // Set up middleware
 app.use(morgan("tiny"));
+app.use("/api/checkout/purchase", express.raw({ type: "application/json" }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "..", "static")));
 app.use(express.urlencoded({ extended: false }));
