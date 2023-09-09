@@ -47,7 +47,6 @@ const Music = () => {
         "/api/checkout/create-checkout-session",
         body
       );
-      console.log(response.data);
       // Redirect the user's browser to the checkout session URL
       window.location.href = response.data.url;
     } catch (error) {
