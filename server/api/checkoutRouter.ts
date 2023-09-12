@@ -25,6 +25,9 @@ router.post(
         },
       ],
       mode: "payment",
+      metadata: {
+        songId: req.body.songId,
+      },
       success_url: `${process.env.SERVER_DOMAIN}/checkout?success=true`,
       cancel_url: `${process.env.SERVER_DOMAIN}/checkout?success=false`,
     });
@@ -89,7 +92,13 @@ router.post(
           expand: ["line_items"],
         }
       );
-      const lineItems = sessionWithLineItems.line_items;
+
+      const songId = sessionWithLineItems.metadata.songId;
+      const song = await Song.findByPk(songId);
+      if (song) {
+        const filePath = path.join(__dirname, "../..", song.filepath);
+        console.log(filePath);
+      }
 
       // Fulfill the purchase...
       // fulfillOrder(lineItems);
