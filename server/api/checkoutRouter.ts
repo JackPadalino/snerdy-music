@@ -25,41 +25,13 @@ router.post(
         },
       ],
       mode: "payment",
-      success_url: `${process.env.SERVER_DOMAIN}/checkout?success=true`,
+      success_url: `${process.env.SERVER_DOMAIN}/checkout?songId=${req.body.songId}&success=true`,
       cancel_url: `${process.env.SERVER_DOMAIN}/checkout?success=false`,
     });
     // res.redirect(303, session.url);
     res.json({ url: session.url });
   }
 );
-
-// router.post(
-//   "/purchase",
-//   bodyParser.raw({ type: "application/json" }),
-//   (request, response) => {
-//     const payload = request.body;
-//     const sig = request.headers["stripe-signature"];
-
-//     let event;
-
-//     try {
-//       event = stripe.webhooks.constructEvent(
-//         payload,
-//         sig,
-//         process.env.STRIPE_PURCHASING_WEBHOOK_SECRET
-//       );
-//     } catch (err) {
-//       return response.status(400).send(`Webhook Error: ${err}`);
-//     }
-
-//     response.status(200).end();
-//   }
-// );
-
-// const fulfillOrder = (lineItems: any) => {
-//   // TODO: fill me in
-//   console.log("Fulfilling order", lineItems);
-// };
 
 router.post(
   "/purchase",
@@ -89,12 +61,6 @@ router.post(
           expand: ["line_items"],
         }
       );
-      const lineItems = sessionWithLineItems.line_items;
-
-      // Fulfill the purchase...
-      // fulfillOrder(lineItems);
-      // Now that the checkout session has been verified as completed, you can set what happens next.
-      // In this case, we want to send the song to the user!
     }
 
     response.status(200).end();
