@@ -4,11 +4,13 @@ import songType from "../../types/songType";
 interface initialStateType {
   allSongs: songType[];
   userSongs: songType[];
+  reduxSongId: string;
 }
 
 const initialState: initialStateType = {
   allSongs: [],
   userSongs: [],
+  reduxSongId: "",
 };
 
 export const songsSlice = createSlice({
@@ -24,8 +26,20 @@ export const songsSlice = createSlice({
     resetSongs: (state) => {
       state.userSongs = initialState.userSongs;
     },
+    setReduxSongId: (state, action) => {
+      state.reduxSongId = action.payload;
+    },
+    resetReduxSongId: (state) => {
+      state.reduxSongId = initialState.reduxSongId;
+    },
   },
 });
 
-export const { setAllSongs, setSongs, resetSongs } = songsSlice.actions;
+export const {
+  setAllSongs,
+  setSongs,
+  resetSongs,
+  setReduxSongId,
+  resetReduxSongId,
+} = songsSlice.actions;
 export default songsSlice.reducer;
