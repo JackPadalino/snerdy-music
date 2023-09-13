@@ -27,14 +27,10 @@ export const songsSlice = createSlice({
       state.userSongs = initialState.userSongs;
     },
     setReduxSongId: (state, action) => {
-      console.log("set redux song id function called");
       state.reduxSongId = action.payload;
-      console.log(state.reduxSongId);
     },
     resetReduxSongId: (state) => {
-      console.log("reset redux song id function called");
       state.reduxSongId = initialState.reduxSongId;
-      console.log(state.reduxSongId);
     },
   },
 });
