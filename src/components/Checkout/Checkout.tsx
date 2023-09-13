@@ -1,5 +1,7 @@
 import React, { useEffect } from "react";
 import axios from "axios";
+import { useAppSelector, useAppDispatch } from "../../store/hooks";
+import { setReduxSongId, resetReduxSongId } from "../../store/songsSlice";
 
 interface CheckoutProps {
   successQueryParam: string | null;
@@ -8,6 +10,8 @@ interface CheckoutProps {
 
 const Checkout: React.FC<CheckoutProps> = ({ successQueryParam, songId }) => {
   const token = window.localStorage.getItem("token");
+  const dispatch = useAppDispatch();
+  const reduxSongId = useAppSelector((state) => state.songs.reduxSongId);
 
   const downloadSong = async (songId: any) => {
     if (successQueryParam === "true") {
@@ -16,7 +20,6 @@ const Checkout: React.FC<CheckoutProps> = ({ successQueryParam, songId }) => {
         const response = await axios.get(`/api/songs/${songId}/download`, {
           responseType: "blob", // Set the response type to blob
         });
-        console.log(response.data);
         // Create a Blob URL from the response data
         const url = window.URL.createObjectURL(new Blob([response.data]));
         // Create an <a> element to initiate the download
@@ -30,6 +33,7 @@ const Checkout: React.FC<CheckoutProps> = ({ successQueryParam, songId }) => {
         // Cleanup: Remove the <a> element and revoke the Blob URL
         document.body.removeChild(link);
         window.URL.revokeObjectURL(url);
+        dispatch(resetReduxSongId());
       } catch (error) {
         console.error("Error downloading song:", error);
       }
@@ -39,8 +43,9 @@ const Checkout: React.FC<CheckoutProps> = ({ successQueryParam, songId }) => {
   if (!token) return <p>Sorry! Something went wrong!</p>;
 
   useEffect(() => {
-    downloadSong(songId);
-    // if (successQueryParam === "true") downloadSong(songId);
+    reduxSongId === songId
+      ? downloadSong(songId)
+      : dispatch(resetReduxSongId());
   }, []);
 
   return (
