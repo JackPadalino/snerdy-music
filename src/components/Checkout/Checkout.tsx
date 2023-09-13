@@ -43,9 +43,7 @@ const Checkout: React.FC<CheckoutProps> = ({ successQueryParam, songId }) => {
   if (!token) return <p>Sorry! Something went wrong!</p>;
 
   useEffect(() => {
-    reduxSongId === songId
-      ? downloadSong(songId)
-      : dispatch(resetReduxSongId());
+    if (reduxSongId === songId) downloadSong(songId);
   }, []);
 
   return (
