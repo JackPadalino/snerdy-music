@@ -34,9 +34,9 @@ const Music = () => {
     }
   };
 
-  // useEffect(() => {
-  //   dispatch(resetSongToBuyId());
-  // }, []);
+  useEffect(() => {
+    dispatch(resetReduxSongId());
+  }, []);
 
   if (!token) return <p>Sorry! Something went wrong!</p>;
   return (
