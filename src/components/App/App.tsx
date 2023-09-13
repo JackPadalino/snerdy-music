@@ -27,6 +27,7 @@ const App = () => {
 
   useEffect(() => {
     checkForUser();
+    dispatch(resetReduxSongId());
   }, []);
 
   return (
