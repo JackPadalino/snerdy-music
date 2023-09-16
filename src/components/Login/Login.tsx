@@ -6,6 +6,7 @@ import { setAllSongs, setSongs } from "../../store/songsSlice";
 import axios from "axios";
 
 const Login = () => {
+  const token = window.localStorage.getItem("token");
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -59,22 +60,26 @@ const Login = () => {
 
   return (
     <div>
-      <h1>Login</h1>
-      <form onSubmit={attemptLogin}>
-        <input
-          placeholder="username"
-          value={credentials.username}
-          name="username"
-          onChange={onChange}
-        />
-        <input
-          placeholder="password"
-          name="password"
-          value={credentials.password}
-          onChange={onChange}
-        />
-        <button>Login</button>
-      </form>
+      {!token && (
+        <>
+          <h1>Login</h1>
+          <form onSubmit={attemptLogin}>
+            <input
+              placeholder="username"
+              value={credentials.username}
+              name="username"
+              onChange={onChange}
+            />
+            <input
+              placeholder="password"
+              name="password"
+              value={credentials.password}
+              onChange={onChange}
+            />
+            <button>Login</button>
+          </form>
+        </>
+      )}
     </div>
   );
 };

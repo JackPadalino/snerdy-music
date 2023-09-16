@@ -18,14 +18,14 @@ const Nav = () => {
     window.localStorage.removeItem("token");
     dispatch(resetUser());
     dispatch(resetSongs());
-    navigate("/login");
+    navigate("/");
   };
 
   return (
     <div id="Nav-div">
       {token && (
         <div>
-          <Link to="/">Home</Link>
+          {/* <Link to="/">Home</Link> */}
           <Link to="/upload">Upload</Link>
           <Link to="/music">Music</Link>
           {/* <Link to="/library">My Library</Link> */}
