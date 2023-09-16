@@ -25,7 +25,7 @@ router.post(
         },
       ],
       mode: "payment",
-      success_url: `${process.env.SERVER_DOMAIN}/checkout?songId=${req.body.songId}&success=true`,
+      success_url: `${process.env.SERVER_DOMAIN}/checkout?xlr=${req.body.songId}&success=true`,
       cancel_url: `${process.env.SERVER_DOMAIN}/checkout?success=false`,
     });
     // res.redirect(303, session.url);

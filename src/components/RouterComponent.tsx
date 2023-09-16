@@ -14,7 +14,7 @@ const RouterComponent = () => {
 
   // Get the value of the 'success' query parameter
   const successQueryParam = urlParams.get("success");
-  const songId = urlParams.get("songId");
+  const songId = urlParams.get("xlr");
 
   return (
     <Routes>
