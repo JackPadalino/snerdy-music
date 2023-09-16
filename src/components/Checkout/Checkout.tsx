@@ -40,7 +40,6 @@ const Checkout: React.FC<CheckoutProps> = ({ successQueryParam, songId }) => {
   };
 
   useEffect(() => {
-    console.log({ "Song id": reduxSongId });
     if (reduxSongId === songId) {
       setCheckoutMessage("Payment successful. Enjoy your new tunes!");
       downloadSong(songId);
