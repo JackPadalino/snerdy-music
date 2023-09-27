@@ -14,6 +14,15 @@ const Home = () => {
   const key = useRef("");
   const file = useRef("");
 
+  const getUserId = (token: any) => {
+    const tokenParts = token.split(".");
+    const encodedPayload = tokenParts[1];
+    const rawPayload = atob(encodedPayload);
+    const userObj = JSON.parse(rawPayload);
+    const userId = userObj.id;
+    return userId;
+  };
+
   const handleTitleChange = (e: any) => {
     title.current = e.target.value;
   };
@@ -39,6 +48,8 @@ const Home = () => {
     e.preventDefault();
     try {
       const body = new FormData();
+      const userId = getUserId(token);
+
       // const body = {
       //   title: title.current,
       //   artist: artist.current,
@@ -46,6 +57,7 @@ const Home = () => {
       //   key: key.current,
       //   file: file.current,
       // };
+      body.append("userId", userId);
       body.append("title", title.current);
       body.append("artist", artist.current);
       // body.append("bpm", bpm.current);

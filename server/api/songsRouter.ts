@@ -1,9 +1,10 @@
 import express, { Request, Response, NextFunction } from "express";
-import { Song } from "../db";
-import { SongModelAttributes } from "../db/models/Song";
 const router = express.Router();
 const path = require("path");
 const multer = require("multer");
+import { v4 as uuidv4 } from "uuid";
+import { Song, User, UserSongs } from "../db";
+import { SongModelAttributes } from "../db/models/Song";
 
 router.get(
   "/:songId/download",
@@ -74,14 +75,18 @@ router.post(
     const documentFile = (req as MulterRequest).file;
     if (documentFile) {
       try {
-        await Song.create({
-          title: req.body.title,
-          artist: req.body.artist,
-          // bpm: req.body.bpm,
-          // key: req.body.key,
-          filepath: documentFile.path,
-        });
-        res.sendStatus(200);
+        const foundUser = await User.findByPk(req.body.userId);
+        if (foundUser) {
+          const newSong = await Song.create({
+            id: uuidv4(),
+            title: req.body.title,
+            artist: req.body.artist,
+            filepath: documentFile.path,
+          });
+          const newUserSong = { userId: foundUser.id, songId: newSong.id };
+          await UserSongs.create(newUserSong);
+          res.sendStatus(200);
+        }
       } catch (err) {
         console.log(err);
         res.sendStatus(500);
