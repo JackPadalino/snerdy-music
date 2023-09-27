@@ -14,7 +14,7 @@ export interface SongModelAttributes
     InferAttributes<SongModelAttributes>,
     InferCreationAttributes<SongModelAttributes>
   > {
-  id: CreationOptional<number>;
+  id?: CreationOptional<number>;
   title: string;
   artist: string;
   // bpm: number;
