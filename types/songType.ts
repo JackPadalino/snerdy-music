@@ -1,5 +1,5 @@
 export default interface songType {
-  id?: number;
+  id: string;
   title: string;
   artist: string;
   // bpm: number;
