@@ -32,13 +32,9 @@ const Music = () => {
         // body
       );
       // Redirect the user's browser to the checkout session URL
-      // window.location.href = response.data.url;
+      window.location.href = response.data.url;
       dispatch(setReduxSongId(songId));
       dispatch(setStripeSessionId(response.data.sessionId));
-      console.log({
-        "here's what we're sending to the redux strore":
-          response.data.sessionId,
-      });
     } catch (error) {
       console.error("Error during checkout:", error);
     }
