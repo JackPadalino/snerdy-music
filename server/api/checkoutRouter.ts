@@ -24,12 +24,22 @@ router.post(
           quantity: 1,
         },
       ],
+      metadata: {
+        song: req.body.songTitle,
+        artist: req.body.songArtist,
+        // songId: req.body.songId,
+      },
       mode: "payment",
-      success_url: `${process.env.SERVER_DOMAIN}/checkout?xlr=${req.body.songId}&success=true`,
+      // success_url: `${process.env.SERVER_DOMAIN}/checkout?xlr=${req.body.songId}&success=true`,
+      success_url: `${process.env.SERVER_DOMAIN}/checkout?success=true`,
       cancel_url: `${process.env.SERVER_DOMAIN}/checkout?success=false`,
     });
     // res.redirect(303, session.url);
-    res.json({ url: session.url });
+    res.json({
+      sessionId: session.id,
+      url: session.url,
+      // songId: req.body.songId,
+    });
   }
 );
 
@@ -62,7 +72,7 @@ router.post(
         }
       );
     }
-
+    console.log({ "Here is the event": event });
     response.status(200).end();
   }
 );

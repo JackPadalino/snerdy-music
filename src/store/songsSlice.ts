@@ -5,12 +5,14 @@ interface initialStateType {
   allSongs: songType[];
   userSongs: songType[];
   reduxSongId: string;
+  stripeSessionId: string;
 }
 
 const initialState: initialStateType = {
   allSongs: [],
   userSongs: [],
   reduxSongId: "",
+  stripeSessionId: "",
 };
 
 export const songsSlice = createSlice({
@@ -32,6 +34,12 @@ export const songsSlice = createSlice({
     resetReduxSongId: (state) => {
       state.reduxSongId = initialState.reduxSongId;
     },
+    setStripeSessionId: (state, action) => {
+      state.stripeSessionId = action.payload;
+    },
+    resetStripeSessionId: (state) => {
+      state.stripeSessionId = initialState.stripeSessionId;
+    },
   },
 });
 
@@ -41,5 +49,7 @@ export const {
   resetSongs,
   setReduxSongId,
   resetReduxSongId,
+  setStripeSessionId,
+  resetStripeSessionId,
 } = songsSlice.actions;
 export default songsSlice.reducer;

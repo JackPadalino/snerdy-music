@@ -2,7 +2,12 @@ import React, { useEffect } from "react";
 import axios from "axios";
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
 import songType from "../../../types/songType";
-import { setReduxSongId, resetReduxSongId } from "../../store/songsSlice";
+import {
+  setReduxSongId,
+  resetReduxSongId,
+  setStripeSessionId,
+  resetStripeSessionId,
+} from "../../store/songsSlice";
 import "./Music.css";
 
 const Music = () => {
@@ -16,19 +21,24 @@ const Music = () => {
     songTitle: string,
     songArtist: string
   ) => {
-    dispatch(setReduxSongId(songId));
     const body = {
-      songId: songId,
+      // songId: songId,
       songTitle: songTitle,
       songArtist: songArtist,
     };
     try {
       const response = await axios.post(
-        "/api/checkout/create-checkout-session",
-        body
+        "/api/checkout/create-checkout-session"
+        // body
       );
       // Redirect the user's browser to the checkout session URL
-      window.location.href = response.data.url;
+      // window.location.href = response.data.url;
+      dispatch(setReduxSongId(songId));
+      dispatch(setStripeSessionId(response.data.sessionId));
+      console.log({
+        "here's what we're sending to the redux strore":
+          response.data.sessionId,
+      });
     } catch (error) {
       console.error("Error during checkout:", error);
     }

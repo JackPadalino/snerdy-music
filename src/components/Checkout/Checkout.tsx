@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+// import path from "path";
+// import dotenv from "dotenv";
+// dotenv.config();
+const stripe = require("stripe")(process.env.STRIPE_API_KEY);
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
 import { setReduxSongId, resetReduxSongId } from "../../store/songsSlice";
 
@@ -12,6 +16,9 @@ const Checkout: React.FC<CheckoutProps> = ({ successQueryParam, songId }) => {
   const token = window.localStorage.getItem("token");
   const dispatch = useAppDispatch();
   const reduxSongId = useAppSelector((state) => state.songs.reduxSongId);
+  const stripeSessionId = useAppSelector(
+    (state) => state.songs.stripeSessionId
+  );
   const [checkoutMessage, setCheckoutMessage] = useState("");
 
   const downloadSong = async (songId: any) => {
@@ -39,13 +46,20 @@ const Checkout: React.FC<CheckoutProps> = ({ successQueryParam, songId }) => {
     }
   };
 
+  const verifyStripePayent = async (stripeSessionId: any) => {
+    const response = await stripe.checkout.sessions.retrieve(stripeSessionId);
+    if (response.status === "complete") downloadSong(reduxSongId);
+  };
+
   useEffect(() => {
-    if (reduxSongId === songId) {
-      setCheckoutMessage("Payment successful. Enjoy your new tunes!");
-      downloadSong(songId);
-    } else {
-      setCheckoutMessage("Oops! Something went wrong! Payment failed.");
-    }
+    // if (reduxSongId === songId) {
+    //   setCheckoutMessage("Payment successful. Enjoy your new tunes!");
+    //   // downloadSong(songId);
+    // } else {
+    //   setCheckoutMessage("Oops! Something went wrong! Payment failed.");
+    // }
+    setCheckoutMessage("Testing this page!");
+    verifyStripePayent(stripeSessionId);
   }, []);
 
   if (!token) return <p>Sorry! Something went wrong!</p>;
