@@ -52,13 +52,7 @@ const Checkout: React.FC<CheckoutProps> = ({ successQueryParam, songId }) => {
   };
 
   useEffect(() => {
-    // if (reduxSongId === songId) {
-    //   setCheckoutMessage("Payment successful. Enjoy your new tunes!");
-    //   // downloadSong(songId);
-    // } else {
-    //   setCheckoutMessage("Oops! Something went wrong! Payment failed.");
-    // }
-    setCheckoutMessage("Testing this page!");
+    setCheckoutMessage("Checkout page");
     verifyStripePayent(stripeSessionId);
   }, []);
 
