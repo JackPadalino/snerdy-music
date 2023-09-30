@@ -20,19 +20,20 @@ const songs: songType[] = [
   },
   {
     id: uuidv4(),
-    title: "Colour 1",
-    artist: "Beau Didier",
+    title: "Temper",
+    artist: "CRTB",
     // bpm: 140,
     // key: "5A",
-    filepath: "music/Colour 1.mp3",
+    filepath: "music/Temper.mp3",
   },
-  // {
-  //   title: "Colour 2",
-  //   artist: "Beau Didier",
-  //   // bpm: 140,
-  //   // key: "5A",
-  //   filepath: "music/Colour 2.mp3",
-  // },
+  {
+    id: uuidv4(),
+    title: "Symphony",
+    artist: "SDB",
+    // bpm: 140,
+    // key: "5A",
+    filepath: "music/Symphony.mp3",
+  },
   // {
   //   title: "Colour 3",
   //   artist: "Beau Didier",
@@ -54,7 +55,7 @@ const seed = async () => {
   await db.sync({ force: true });
   try {
     console.log("Adding songs...");
-    const [bootyShakeSong, Colour1Song] = await Promise.all(
+    const [bootyShakeSong, colour1Song, symphonySong] = await Promise.all(
       songs.map((song) => Song.create(song))
     );
 
@@ -65,7 +66,8 @@ const seed = async () => {
     console.log("Associating users with songs...");
     const userSongsList = [
       { userId: jackPadalino.id, songId: bootyShakeSong.id },
-      { userId: jackPadalino.id, songId: Colour1Song.id },
+      { userId: jackPadalino.id, songId: colour1Song.id },
+      { userId: jasmineHarrison.id, songId: symphonySong.id },
     ];
     await Promise.all(
       userSongsList.map((userSong) => UserSongs.create(userSong))

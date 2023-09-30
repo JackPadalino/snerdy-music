@@ -9,10 +9,9 @@ import { setReduxSongId, resetReduxSongId } from "../../store/songsSlice";
 
 interface CheckoutProps {
   successQueryParam: string | null;
-  songId: string | null;
 }
 
-const Checkout: React.FC<CheckoutProps> = ({ successQueryParam, songId }) => {
+const Checkout: React.FC<CheckoutProps> = ({ successQueryParam }) => {
   const token = window.localStorage.getItem("token");
   const dispatch = useAppDispatch();
   const reduxSongId = useAppSelector((state) => state.songs.reduxSongId);
@@ -21,11 +20,42 @@ const Checkout: React.FC<CheckoutProps> = ({ successQueryParam, songId }) => {
   );
   const [checkoutMessage, setCheckoutMessage] = useState("");
 
+  // const downloadSong = async (
+  //   songId: any,
+  //   songTitle: string,
+  //   songArtist: string
+  // ) => {
+  //   try {
+  //     // Send a GET request to the server to download the song
+  //     const response = await axios.get(`/api/songs/${songId}/download`, {
+  //       // Set the response type to blob
+  //       responseType: "blob",
+  //     });
+  //     // Create a Blob URL from the response data
+  //     const url = window.URL.createObjectURL(new Blob([response.data]));
+  //     // Create an <a> element to initiate the download
+  //     const link = document.createElement("a");
+  //     link.href = url;
+  //     // Set the "download" attribute and filename for the download
+  //     link.setAttribute("download", `${songArtist} - ${songTitle}.mp3`); // Set the desired filename
+  //     // Append the <a> element to the DOM and trigger a click event
+  //     document.body.appendChild(link);
+  //     link.click();
+  //     // Cleanup: Remove the <a> element and revoke the Blob URL
+  //     document.body.removeChild(link);
+  //     window.URL.revokeObjectURL(url);
+  //     dispatch(resetReduxSongId());
+  //   } catch (error) {
+  //     console.error("Error downloading song:", error);
+  //   }
+  // };
+
   const downloadSong = async (songId: any) => {
     try {
       // Send a GET request to the server to download the song
       const response = await axios.get(`/api/songs/${songId}/download`, {
-        responseType: "blob", // Set the response type to blob
+        // Set the response type to blob
+        responseType: "blob",
       });
       // Create a Blob URL from the response data
       const url = window.URL.createObjectURL(new Blob([response.data]));

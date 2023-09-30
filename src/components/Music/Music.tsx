@@ -51,10 +51,10 @@ const Music = () => {
       <ul>
         {songs.map((song: songType) => (
           <li key={song.id}>
-            {song.title} - {song.artist}
+            {song.artist} - {song.title}
             {/* <button
               className="downloadButton"
-              onClick={() => downloadSong(song.id, song.title)}
+              onClick={() => downloadSong(song.id, song.title, song.artist)}
             >
               Download
             </button> */}
