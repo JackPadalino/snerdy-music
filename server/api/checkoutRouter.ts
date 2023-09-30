@@ -17,7 +17,7 @@ router.post(
           price_data: {
             currency: "usd",
             product_data: {
-              name: `${req.body.songTitle} - ${req.body.songArtist}.mp3`,
+              name: `${req.body.songArtist} - ${req.body.songTitle}.mp3`,
             },
             unit_amount: 100,
           },
