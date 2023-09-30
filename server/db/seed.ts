@@ -2,48 +2,32 @@ import db from "./db";
 import { Song, User, UserSongs } from ".";
 import songType from "../../types/songType";
 import userType from "../../types/userType";
+import { v4 as uuidv4 } from "uuid";
 
 const users: userType[] = [
-  { username: "pada0867", password: "abc123" },
-  { username: "modernboheme", password: "abc123" },
+  { id: uuidv4(), username: "pada0867", password: "abc123" },
+  { id: uuidv4(), username: "modernboheme", password: "abc123" },
 ];
 
 const songs: songType[] = [
   {
+    id: uuidv4(),
     title: "Booty Shake",
     artist: "Beau Didier",
-    // bpm: 140,
-    // key: "5A",
     filepath: "music/Booty Shake.mp3",
   },
   {
-    title: "Colour 1",
-    artist: "Beau Didier",
-    // bpm: 140,
-    // key: "5A",
-    filepath: "music/Colour 1.mp3",
+    id: uuidv4(),
+    title: "Temper",
+    artist: "CRTB",
+    filepath: "music/Temper.mp3",
   },
-  // {
-  //   title: "Colour 2",
-  //   artist: "Beau Didier",
-  //   // bpm: 140,
-  //   // key: "5A",
-  //   filepath: "music/Colour 2.mp3",
-  // },
-  // {
-  //   title: "Colour 3",
-  //   artist: "Beau Didier",
-  //   // bpm: 140,
-  //   // key: "5A",
-  //   filepath: "music/Colour 3.mp3",
-  // },
-  // {
-  //   title: "Colour 4",
-  //   artist: "Beau Didier",
-  //   // bpm: 140,
-  //   // key: "5A",
-  //   filepath: "music/Colour 4.mp3",
-  // },
+  {
+    id: uuidv4(),
+    title: "Symphony",
+    artist: "SDB",
+    filepath: "music/Symphony.mp3",
+  },
 ];
 
 const seed = async () => {
@@ -51,7 +35,7 @@ const seed = async () => {
   await db.sync({ force: true });
   try {
     console.log("Adding songs...");
-    const [bootyShakeSong, Colour1Song] = await Promise.all(
+    const [bootyShakeSong, colour1Song, symphonySong] = await Promise.all(
       songs.map((song) => Song.create(song))
     );
 
@@ -62,10 +46,8 @@ const seed = async () => {
     console.log("Associating users with songs...");
     const userSongsList = [
       { userId: jackPadalino.id, songId: bootyShakeSong.id },
-      { userId: jackPadalino.id, songId: Colour1Song.id },
-      // { userId: jackPadalino.id, songId: toTheMoonAndBackSong.id },
-      // { userId: jasmineHarrison.id, songId: goWithTheFlowSong.id },
-      // { userId: jasmineHarrison.id, songId: quantumSong.id },
+      { userId: jackPadalino.id, songId: colour1Song.id },
+      { userId: jasmineHarrison.id, songId: symphonySong.id },
     ];
     await Promise.all(
       userSongsList.map((userSong) => UserSongs.create(userSong))

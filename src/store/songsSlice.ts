@@ -4,13 +4,20 @@ import songType from "../../types/songType";
 interface initialStateType {
   allSongs: songType[];
   userSongs: songType[];
-  reduxSongId: string;
+  reduxSong: songType;
+  stripeSessionId: string;
 }
 
 const initialState: initialStateType = {
   allSongs: [],
   userSongs: [],
-  reduxSongId: "",
+  reduxSong: {
+    id: "",
+    title: "",
+    artist: "",
+    filepath: "",
+  },
+  stripeSessionId: "",
 };
 
 export const songsSlice = createSlice({
@@ -26,11 +33,17 @@ export const songsSlice = createSlice({
     resetSongs: (state) => {
       state.userSongs = initialState.userSongs;
     },
-    setReduxSongId: (state, action) => {
-      state.reduxSongId = action.payload;
+    setReduxSong: (state, action) => {
+      state.reduxSong = action.payload;
     },
-    resetReduxSongId: (state) => {
-      state.reduxSongId = initialState.reduxSongId;
+    resetReduxSong: (state) => {
+      state.reduxSong = initialState.reduxSong;
+    },
+    setStripeSessionId: (state, action) => {
+      state.stripeSessionId = action.payload;
+    },
+    resetStripeSessionId: (state) => {
+      state.stripeSessionId = initialState.stripeSessionId;
     },
   },
 });
@@ -39,7 +52,9 @@ export const {
   setAllSongs,
   setSongs,
   resetSongs,
-  setReduxSongId,
-  resetReduxSongId,
+  setReduxSong,
+  resetReduxSong,
+  setStripeSessionId,
+  resetStripeSessionId,
 } = songsSlice.actions;
 export default songsSlice.reducer;

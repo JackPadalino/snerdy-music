@@ -5,7 +5,7 @@ import { setUser } from "../../store/userSlice";
 import { useAppDispatch } from "../../store/hooks";
 import RouterComponent from "../../components/RouterComponent";
 import Nav from "../../components/Nav/Nav";
-import { setReduxSongId, resetReduxSongId } from "../../store/songsSlice";
+import { resetReduxSong, resetStripeSessionId } from "../../store/songsSlice";
 //import "./style.css";
 
 const App = () => {
@@ -27,7 +27,8 @@ const App = () => {
 
   useEffect(() => {
     checkForUser();
-    dispatch(resetReduxSongId());
+    dispatch(resetReduxSong());
+    dispatch(resetStripeSessionId());
   }, []);
 
   return (

@@ -1,18 +1,23 @@
-import React, { SyntheticEvent, useRef, useState, useEffect } from "react";
+import React, { useRef } from "react";
 import axios from "axios";
-import { useAppSelector, useAppDispatch } from "../../store/hooks";
-import { resetUser } from "../../store/userSlice";
-import { setAllSongs, resetSongs } from "../../store/songsSlice";
-import { RootState } from "../../store";
+import { useAppDispatch } from "../../store/hooks";
+import { setAllSongs } from "../../store/songsSlice";
 
 const Home = () => {
   const token = window.localStorage.getItem("token");
   const dispatch = useAppDispatch();
   const title = useRef("");
   const artist = useRef("");
-  // const bpm = useRef(0);
-  const key = useRef("");
   const file = useRef("");
+
+  const getUserId = (token: any) => {
+    const tokenParts = token.split(".");
+    const encodedPayload = tokenParts[1];
+    const rawPayload = atob(encodedPayload);
+    const userObj = JSON.parse(rawPayload);
+    const userId = userObj.id;
+    return userId;
+  };
 
   const handleTitleChange = (e: any) => {
     title.current = e.target.value;
@@ -20,15 +25,6 @@ const Home = () => {
 
   const handleArtistChange = (e: any) => {
     artist.current = e.target.value;
-  };
-
-  // const handleBpmChange = (e: any) => {
-  //   const parsedBpm = parseInt(e.target.value, 10);
-  //   bpm.current = isNaN(parsedBpm) ? 0 : parsedBpm;
-  // };
-
-  const handleKeyChange = (e: any) => {
-    key.current = e.target.value;
   };
 
   const handleFileChange = (e: any) => {
@@ -39,23 +35,11 @@ const Home = () => {
     e.preventDefault();
     try {
       const body = new FormData();
-      // const body = {
-      //   title: title.current,
-      //   artist: artist.current,
-      //   bpm: bpm.current,
-      //   key: key.current,
-      //   file: file.current,
-      // };
+      const userId = getUserId(token);
+      body.append("userId", userId);
       body.append("title", title.current);
       body.append("artist", artist.current);
-      // body.append("bpm", bpm.current);
-      // body.append("key", key.current);
       body.append("file", file.current);
-      // await axios.post(`/api/songs`, body, {
-      //   headers: {
-      //     "Content-Type": "multipart/form-data",
-      //   },
-      // });
       await axios.post(`/api/songs`, body);
       file.current = "";
       //fetch all songs
@@ -87,20 +71,6 @@ const Home = () => {
               type="text"
               onChange={handleArtistChange}
             />
-            {/* <label htmlFor="bpm">BPM</label>
-              <input
-                id="bpm"
-                name="bpm"
-                type="number"
-                onChange={handleBpmChange}
-              /> */}
-            {/* <label htmlFor="key">Key</label>
-              <input
-                id="key"
-                name="key"
-                type="text"
-                onChange={handleKeyChange}
-              /> */}
             <label htmlFor="file">Select file</label>
             <input
               id="file"
@@ -113,11 +83,6 @@ const Home = () => {
             Upload
           </button>
         </form>
-        {/* <form action="/api/songs" method="POST" encType="multipart/form-data">
-            <input type="file" name="song" />
-
-            <button type="submit">Upload</button>
-          </form> */}
       </div>
     </div>
   );

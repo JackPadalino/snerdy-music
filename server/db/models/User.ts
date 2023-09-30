@@ -2,12 +2,7 @@ import db from "../db";
 import Sequelize from "sequelize";
 import bcrypt from "bcrypt";
 import jwt, { JwtPayload, Secret } from "jsonwebtoken";
-import {
-  CreationOptional,
-  InferAttributes,
-  InferCreationAttributes,
-  Model,
-} from "sequelize";
+import { InferAttributes, InferCreationAttributes, Model } from "sequelize";
 
 interface ResponseError extends Error {
   status?: number;
@@ -21,12 +16,9 @@ interface UserModel
     InferAttributes<UserModel>,
     InferCreationAttributes<UserModel>
   > {
-  id?: CreationOptional<number>;
+  id: string;
   username: string;
   password: string;
-  // songs: songType[];
-
-  //   email: CreationOptional<string>;
 }
 
 const User = db.define<UserModel>("user", {

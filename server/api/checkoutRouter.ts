@@ -1,5 +1,4 @@
 import express, { Request, Response, NextFunction } from "express";
-import { Song } from "../db";
 const router = express.Router();
 const path = require("path");
 import dotenv from "dotenv";
@@ -17,19 +16,25 @@ router.post(
           price_data: {
             currency: "usd",
             product_data: {
-              name: `${req.body.songTitle} - ${req.body.songArtist}.mp3`,
+              name: `${req.body.songArtist} - ${req.body.songTitle}.mp3`,
             },
             unit_amount: 100,
           },
           quantity: 1,
         },
       ],
+      metadata: {
+        song: req.body.songTitle,
+        artist: req.body.songArtist,
+      },
       mode: "payment",
-      success_url: `${process.env.SERVER_DOMAIN}/checkout?xlr=${req.body.songId}&success=true`,
+      success_url: `${process.env.SERVER_DOMAIN}/checkout?success=true`,
       cancel_url: `${process.env.SERVER_DOMAIN}/checkout?success=false`,
     });
-    // res.redirect(303, session.url);
-    res.json({ url: session.url });
+    res.json({
+      sessionId: session.id,
+      url: session.url,
+    });
   }
 );
 
@@ -62,7 +67,7 @@ router.post(
         }
       );
     }
-
+    console.log({ "Here is the event": event });
     response.status(200).end();
   }
 );

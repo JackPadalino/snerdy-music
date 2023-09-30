@@ -1,11 +1,6 @@
 import db from "../db";
 import Sequelize from "sequelize";
-import {
-  CreationOptional,
-  InferAttributes,
-  InferCreationAttributes,
-  Model,
-} from "sequelize";
+import { InferAttributes, InferCreationAttributes, Model } from "sequelize";
 
 const { STRING, INTEGER, ENUM, UUID, UUIDV4 } = Sequelize;
 
@@ -14,11 +9,9 @@ export interface SongModelAttributes
     InferAttributes<SongModelAttributes>,
     InferCreationAttributes<SongModelAttributes>
   > {
-  id?: CreationOptional<number>;
+  id: string;
   title: string;
   artist: string;
-  // bpm: number;
-  // key: string;
   filepath: string;
 }
 

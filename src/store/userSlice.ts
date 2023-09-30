@@ -7,7 +7,7 @@ interface initialStateType {
 
 const initialState: initialStateType = {
   userInfo: {
-    id: 0,
+    id: "",
     username: "",
     password: "",
   },

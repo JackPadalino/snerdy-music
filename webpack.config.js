@@ -1,3 +1,6 @@
+const webpack = require("webpack"); //to access built-in plugins
+const Dotenv = require("dotenv-webpack");
+
 module.exports = {
   devtool: "source-map",
   module: {
@@ -25,4 +28,5 @@ module.exports = {
   resolve: {
     extensions: [".js", ".jsx", ".ts", ".tsx", ".html", ".scss"],
   },
+  plugins: [new Dotenv()],
 };
