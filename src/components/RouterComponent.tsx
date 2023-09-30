@@ -14,7 +14,6 @@ const RouterComponent = () => {
 
   // Get the value of the 'success' query parameter
   const successQueryParam = urlParams.get("success");
-  const songId = urlParams.get("xlr");
 
   return (
     <Routes>
@@ -25,9 +24,7 @@ const RouterComponent = () => {
       {/* Pass the successQueryParam as a prop to the Success component */}
       <Route
         path="/checkout"
-        element={
-          <Checkout successQueryParam={successQueryParam} songId={songId} />
-        }
+        element={<Checkout successQueryParam={successQueryParam} />}
       />
     </Routes>
   );
