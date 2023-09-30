@@ -5,7 +5,13 @@ import axios from "axios";
 // dotenv.config();
 const stripe = require("stripe")(process.env.STRIPE_API_KEY);
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
-import { setReduxSongId, resetReduxSongId } from "../../store/songsSlice";
+import {
+  setReduxSongId,
+  resetReduxSongId,
+  resetReduxSong,
+  resetStripeSessionId,
+} from "../../store/songsSlice";
+import songType from "../../../types/songType";
 
 interface CheckoutProps {
   successQueryParam: string | null;
@@ -14,7 +20,8 @@ interface CheckoutProps {
 const Checkout: React.FC<CheckoutProps> = ({ successQueryParam }) => {
   const token = window.localStorage.getItem("token");
   const dispatch = useAppDispatch();
-  const reduxSongId = useAppSelector((state) => state.songs.reduxSongId);
+  // const reduxSongId = useAppSelector((state) => state.songs.reduxSongId);
+  const reduxSong = useAppSelector((state) => state.songs.reduxSong);
   const stripeSessionId = useAppSelector(
     (state) => state.songs.stripeSessionId
   );
@@ -50,10 +57,10 @@ const Checkout: React.FC<CheckoutProps> = ({ successQueryParam }) => {
   //   }
   // };
 
-  const downloadSong = async (songId: any) => {
+  const downloadSong = async (reduxSong: songType) => {
     try {
       // Send a GET request to the server to download the song
-      const response = await axios.get(`/api/songs/${songId}/download`, {
+      const response = await axios.get(`/api/songs/${reduxSong.id}/download`, {
         // Set the response type to blob
         responseType: "blob",
       });
@@ -63,27 +70,34 @@ const Checkout: React.FC<CheckoutProps> = ({ successQueryParam }) => {
       const link = document.createElement("a");
       link.href = url;
       // Set the "download" attribute and filename for the download
-      link.setAttribute("download", "song.mp3"); // Set the desired filename
+      link.setAttribute(
+        "download",
+        `${reduxSong.artist} - ${reduxSong.title}.mp3`
+      ); // Set the desired filename
       // Append the <a> element to the DOM and trigger a click event
       document.body.appendChild(link);
       link.click();
       // Cleanup: Remove the <a> element and revoke the Blob URL
       document.body.removeChild(link);
       window.URL.revokeObjectURL(url);
-      dispatch(resetReduxSongId());
+      dispatch(resetReduxSong());
+      dispatch(resetStripeSessionId());
     } catch (error) {
       console.error("Error downloading song:", error);
     }
   };
 
-  const verifyStripePayent = async (stripeSessionId: any) => {
+  const verifyStripePayent = async (
+    stripeSessionId: string,
+    reduxSong: songType
+  ) => {
     const response = await stripe.checkout.sessions.retrieve(stripeSessionId);
-    if (response.status === "complete") downloadSong(reduxSongId);
+    if (response.status === "complete") downloadSong(reduxSong);
   };
 
   useEffect(() => {
     setCheckoutMessage("Checkout page");
-    verifyStripePayent(stripeSessionId);
+    verifyStripePayent(stripeSessionId, reduxSong);
   }, []);
 
   if (!token) return <p>Sorry! Something went wrong!</p>;

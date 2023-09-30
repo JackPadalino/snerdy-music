@@ -3,6 +3,8 @@ import axios from "axios";
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
 import songType from "../../../types/songType";
 import {
+  setReduxSong,
+  resetReduxSong,
   setReduxSongId,
   resetReduxSongId,
   setStripeSessionId,
@@ -14,12 +16,13 @@ const Music = () => {
   const token = window.localStorage.getItem("token");
   const dispatch = useAppDispatch();
   const songs = useAppSelector((state) => state.songs.allSongs);
-  const reduxSongId = useAppSelector((state) => state.songs.reduxSongId);
+  // const reduxSongId = useAppSelector((state) => state.songs.reduxSongId);
 
   const checkout = async (
-    songId: any,
+    songId: string,
     songTitle: string,
-    songArtist: string
+    songArtist: string,
+    songFilepath: string
   ) => {
     const body = {
       // songId: songId,
@@ -28,12 +31,20 @@ const Music = () => {
     };
     try {
       const response = await axios.post(
-        "/api/checkout/create-checkout-session"
-        // body
+        "/api/checkout/create-checkout-session",
+        body
       );
       // Redirect the user's browser to the checkout session URL
       window.location.href = response.data.url;
-      dispatch(setReduxSongId(songId));
+      // dispatch(setReduxSongId(songId));
+      dispatch(
+        setReduxSong({
+          id: songId,
+          title: songTitle,
+          artist: songArtist,
+          filepath: songFilepath,
+        })
+      );
       dispatch(setStripeSessionId(response.data.sessionId));
     } catch (error) {
       console.error("Error during checkout:", error);
@@ -41,7 +52,8 @@ const Music = () => {
   };
 
   useEffect(() => {
-    dispatch(resetReduxSongId());
+    dispatch(resetReduxSong());
+    dispatch(resetStripeSessionId());
   }, []);
 
   if (!token) return <p>Sorry! Something went wrong!</p>;
@@ -58,7 +70,11 @@ const Music = () => {
             >
               Download
             </button> */}
-            <button onClick={() => checkout(song.id, song.title, song.artist)}>
+            <button
+              onClick={() =>
+                checkout(song.id, song.title, song.artist, song.filepath)
+              }
+            >
               Buy
             </button>
           </li>
