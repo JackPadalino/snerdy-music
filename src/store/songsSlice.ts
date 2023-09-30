@@ -5,7 +5,6 @@ interface initialStateType {
   allSongs: songType[];
   userSongs: songType[];
   reduxSong: songType;
-  reduxSongId: string;
   stripeSessionId: string;
 }
 
@@ -18,7 +17,6 @@ const initialState: initialStateType = {
     artist: "",
     filepath: "",
   },
-  reduxSongId: "",
   stripeSessionId: "",
 };
 
@@ -41,12 +39,6 @@ export const songsSlice = createSlice({
     resetReduxSong: (state) => {
       state.reduxSong = initialState.reduxSong;
     },
-    setReduxSongId: (state, action) => {
-      state.reduxSongId = action.payload;
-    },
-    resetReduxSongId: (state) => {
-      state.reduxSongId = initialState.reduxSongId;
-    },
     setStripeSessionId: (state, action) => {
       state.stripeSessionId = action.payload;
     },
@@ -62,8 +54,6 @@ export const {
   resetSongs,
   setReduxSong,
   resetReduxSong,
-  setReduxSongId,
-  resetReduxSongId,
   setStripeSessionId,
   resetStripeSessionId,
 } = songsSlice.actions;

@@ -14,40 +14,20 @@ const songs: songType[] = [
     id: uuidv4(),
     title: "Booty Shake",
     artist: "Beau Didier",
-    // bpm: 140,
-    // key: "5A",
     filepath: "music/Booty Shake.mp3",
   },
   {
     id: uuidv4(),
     title: "Temper",
     artist: "CRTB",
-    // bpm: 140,
-    // key: "5A",
     filepath: "music/Temper.mp3",
   },
   {
     id: uuidv4(),
     title: "Symphony",
     artist: "SDB",
-    // bpm: 140,
-    // key: "5A",
     filepath: "music/Symphony.mp3",
   },
-  // {
-  //   title: "Colour 3",
-  //   artist: "Beau Didier",
-  //   // bpm: 140,
-  //   // key: "5A",
-  //   filepath: "music/Colour 3.mp3",
-  // },
-  // {
-  //   title: "Colour 4",
-  //   artist: "Beau Didier",
-  //   // bpm: 140,
-  //   // key: "5A",
-  //   filepath: "music/Colour 4.mp3",
-  // },
 ];
 
 const seed = async () => {

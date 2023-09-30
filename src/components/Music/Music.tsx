@@ -5,8 +5,6 @@ import songType from "../../../types/songType";
 import {
   setReduxSong,
   resetReduxSong,
-  setReduxSongId,
-  resetReduxSongId,
   setStripeSessionId,
   resetStripeSessionId,
 } from "../../store/songsSlice";
@@ -16,7 +14,6 @@ const Music = () => {
   const token = window.localStorage.getItem("token");
   const dispatch = useAppDispatch();
   const songs = useAppSelector((state) => state.songs.allSongs);
-  // const reduxSongId = useAppSelector((state) => state.songs.reduxSongId);
 
   const checkout = async (
     songId: string,
@@ -25,7 +22,6 @@ const Music = () => {
     songFilepath: string
   ) => {
     const body = {
-      // songId: songId,
       songTitle: songTitle,
       songArtist: songArtist,
     };
@@ -36,7 +32,6 @@ const Music = () => {
       );
       // Redirect the user's browser to the checkout session URL
       window.location.href = response.data.url;
-      // dispatch(setReduxSongId(songId));
       dispatch(
         setReduxSong({
           id: songId,
@@ -64,12 +59,6 @@ const Music = () => {
         {songs.map((song: songType) => (
           <li key={song.id}>
             {song.artist} - {song.title}
-            {/* <button
-              className="downloadButton"
-              onClick={() => downloadSong(song.id, song.title, song.artist)}
-            >
-              Download
-            </button> */}
             <button
               onClick={() =>
                 checkout(song.id, song.title, song.artist, song.filepath)
@@ -80,7 +69,6 @@ const Music = () => {
           </li>
         ))}
       </ul>
-      {/* <button onClick={() => checkout()}>Checkout</button> */}
     </div>
   );
 };

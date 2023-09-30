@@ -3,7 +3,6 @@ import Sequelize from "sequelize";
 import bcrypt from "bcrypt";
 import jwt, { JwtPayload, Secret } from "jsonwebtoken";
 import { InferAttributes, InferCreationAttributes, Model } from "sequelize";
-import { v4 as uuidv4 } from "uuid"; // Import the UUID generator
 
 interface ResponseError extends Error {
   status?: number;

@@ -1,4 +1,3 @@
-import db from "../db/db";
 import User from "../db/models/User";
 
 import express, { NextFunction, Request, Response } from "express";

@@ -1,5 +1,4 @@
 import express, { Request, Response, NextFunction } from "express";
-import { Song } from "../db";
 const router = express.Router();
 const path = require("path");
 import dotenv from "dotenv";
@@ -27,18 +26,14 @@ router.post(
       metadata: {
         song: req.body.songTitle,
         artist: req.body.songArtist,
-        // songId: req.body.songId,
       },
       mode: "payment",
-      // success_url: `${process.env.SERVER_DOMAIN}/checkout?xlr=${req.body.songId}&success=true`,
       success_url: `${process.env.SERVER_DOMAIN}/checkout?success=true`,
       cancel_url: `${process.env.SERVER_DOMAIN}/checkout?success=false`,
     });
-    // res.redirect(303, session.url);
     res.json({
       sessionId: session.id,
       url: session.url,
-      // songId: req.body.songId,
     });
   }
 );
