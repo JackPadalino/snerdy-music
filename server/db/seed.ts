@@ -45,9 +45,9 @@ const seed = async () => {
     );
     console.log("Associating users with songs...");
     const userSongsList = [
-      { userId: jackPadalino.id, songId: bootyShakeSong.id },
-      { userId: jackPadalino.id, songId: colour1Song.id },
-      { userId: jasmineHarrison.id, songId: symphonySong.id },
+      { id: uuidv4(), userId: jackPadalino.id, songId: bootyShakeSong.id },
+      { id: uuidv4(), userId: jackPadalino.id, songId: colour1Song.id },
+      { id: uuidv4(), userId: jasmineHarrison.id, songId: symphonySong.id },
     ];
     await Promise.all(
       userSongsList.map((userSong) => UserSongs.create(userSong))

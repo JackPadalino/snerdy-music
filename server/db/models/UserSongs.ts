@@ -7,20 +7,31 @@ import {
   Model,
 } from "sequelize";
 
+const { STRING, INTEGER, ENUM, UUID, UUIDV4 } = Sequelize;
+
 export interface UserSongsAttributes
   extends Model<
     InferAttributes<UserSongsAttributes>,
     InferCreationAttributes<UserSongsAttributes>
   > {
-  id: CreationOptional<number>;
+  id: string;
+  songId: string;
+  userId: string;
 }
 
 const UserSongs = db.define<UserSongsAttributes>("usersongs", {
   id: {
-    type: Sequelize.INTEGER,
+    type: UUID,
     primaryKey: true,
-    autoIncrement: true,
-    allowNull: false,
+    defaultValue: UUIDV4,
+  },
+  songId: {
+    type: UUID,
+    defaultValue: UUIDV4,
+  },
+  userId: {
+    type: UUID,
+    defaultValue: UUIDV4,
   },
 });
 

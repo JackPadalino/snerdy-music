@@ -1,23 +1,15 @@
 import React, { useRef } from "react";
 import axios from "axios";
-import { useAppDispatch } from "../../store/hooks";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { setAllSongs } from "../../store/songsSlice";
 
 const Home = () => {
   const token = window.localStorage.getItem("token");
   const dispatch = useAppDispatch();
+  const userInfo = useAppSelector((state) => state.user.userInfo);
   const title = useRef("");
   const artist = useRef("");
   const file = useRef("");
-
-  const getUserId = (token: any) => {
-    const tokenParts = token.split(".");
-    const encodedPayload = tokenParts[1];
-    const rawPayload = atob(encodedPayload);
-    const userObj = JSON.parse(rawPayload);
-    const userId = userObj.id;
-    return userId;
-  };
 
   const handleTitleChange = (e: any) => {
     title.current = e.target.value;
@@ -35,8 +27,7 @@ const Home = () => {
     e.preventDefault();
     try {
       const body = new FormData();
-      const userId = getUserId(token);
-      body.append("userId", userId);
+      body.append("userId", userInfo.id);
       body.append("title", title.current);
       body.append("artist", artist.current);
       body.append("file", file.current);
