@@ -16,7 +16,11 @@ router.get(
       const user = await User.findByPk(userId);
       if (song && user) {
         const newUserSong = { userId: user.id, songId: song.id };
-        await UserSongs.create({ userId: user.id, songId: song.id });
+        await UserSongs.create({
+          id: uuidv4(),
+          userId: user.id,
+          songId: song.id,
+        });
         const filePath = path.join(__dirname, "../..", song.filepath);
         res.download(filePath, `${song.title}.mp3`); // Set the desired filename
       } else {
@@ -87,8 +91,11 @@ router.post(
             artist: req.body.artist,
             filepath: documentFile.path,
           });
-          const newUserSong = { userId: foundUser.id, songId: newSong.id };
-          await UserSongs.create(newUserSong);
+          await UserSongs.create({
+            id: uuidv4(),
+            userId: foundUser.id,
+            songId: newSong.id,
+          });
           res.sendStatus(200);
         }
       } catch (err) {
