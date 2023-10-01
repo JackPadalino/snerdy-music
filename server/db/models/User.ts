@@ -11,17 +11,17 @@ interface ResponseError extends Error {
 const { STRING, UUID, ARRAY, UUIDV4 } = Sequelize;
 const JWT = process.env.JWT;
 
-interface UserModel
+export interface UserModelAttributes
   extends Model<
-    InferAttributes<UserModel>,
-    InferCreationAttributes<UserModel>
+    InferAttributes<UserModelAttributes>,
+    InferCreationAttributes<UserModelAttributes>
   > {
   id: string;
   username: string;
   password: string;
 }
 
-const User = db.define<UserModel>("user", {
+const User = db.define<UserModelAttributes>("user", {
   id: {
     type: UUID,
     primaryKey: true,
@@ -44,7 +44,7 @@ const User = db.define<UserModel>("user", {
   },
 });
 
-User.addHook("beforeSave", async (user: UserModel) => {
+User.addHook("beforeSave", async (user: UserModelAttributes) => {
   if (user.changed("password")) {
     user.password = await bcrypt.hash(user.password, 5);
   }
