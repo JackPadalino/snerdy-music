@@ -7,12 +7,16 @@ import { Song, User, UserSongs } from "../db";
 import { SongModelAttributes } from "../db/models/Song";
 
 router.get(
-  "/:songId/download",
+  "/:songId/download/:userId",
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const songId = req.params.songId;
+      const userId = req.params.userId!;
       const song = await Song.findByPk(songId);
-      if (song) {
+      const user = await User.findByPk(userId);
+      if (song && user) {
+        const newUserSong = { userId: user.id, songId: song.id };
+        await UserSongs.create({ userId: user.id, songId: song.id });
         const filePath = path.join(__dirname, "../..", song.filepath);
         res.download(filePath, `${song.title}.mp3`); // Set the desired filename
       } else {

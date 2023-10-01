@@ -13,18 +13,22 @@ const Checkout: React.FC<CheckoutProps> = ({ successQueryParam }) => {
   const token = window.localStorage.getItem("token");
   const dispatch = useAppDispatch();
   const reduxSong = useAppSelector((state) => state.songs.reduxSong);
+  const userInfo = useAppSelector((state) => state.user.userInfo);
   const stripeSessionId = useAppSelector(
     (state) => state.songs.stripeSessionId
   );
   const [checkoutMessage, setCheckoutMessage] = useState("");
 
-  const downloadSong = async (reduxSong: songType) => {
+  const downloadSong = async (reduxSong: songType, userId: string) => {
     try {
       // Send a GET request to the server to download the song
-      const response = await axios.get(`/api/songs/${reduxSong.id}/download`, {
-        // Set the response type to blob
-        responseType: "blob",
-      });
+      const response = await axios.get(
+        `/api/songs/${reduxSong.id}/download/${userId}`,
+        {
+          // Set the response type to blob
+          responseType: "blob",
+        }
+      );
       // Create a Blob URL from the response data
       const url = window.URL.createObjectURL(new Blob([response.data]));
       // Create an <a> element to initiate the download
@@ -53,7 +57,7 @@ const Checkout: React.FC<CheckoutProps> = ({ successQueryParam }) => {
     reduxSong: songType
   ) => {
     const response = await stripe.checkout.sessions.retrieve(stripeSessionId);
-    if (response.status === "complete") downloadSong(reduxSong);
+    if (response.status === "complete") downloadSong(reduxSong, userInfo.id);
   };
 
   useEffect(() => {
