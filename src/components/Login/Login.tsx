@@ -66,24 +66,24 @@ const Login = () => {
           <h1 className="loginNoTokenTitle">Login</h1>
           <form onSubmit={attemptLogin}>
             <input
-              placeholder="username"
+              placeholder="Username"
               value={credentials.username}
               name="username"
               onChange={onChange}
             />
             <input
-              placeholder="password"
+              placeholder="Password"
               name="password"
               type="password"
               value={credentials.password}
               onChange={onChange}
             />
-            <button>Login</button>
+            <button className="loginBtn">Login</button>
           </form>
         </div>
       )}
       {token && (
-        <div className="logiTokenContainer">
+        <div className="loginTokenContainer">
           <h1 className="loginTokenTitle">Welcome to Snerdy Music</h1>
         </div>
       )}

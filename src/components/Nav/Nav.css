@@ -3,14 +3,60 @@
   justify-content: right;
 }
 
+.navGhostContainer {
+  display: flex;
+  width: 10%;
+}
+
 .navLinksContainer {
   display: flex;
   justify-content: center;
-  background-color: red;
-  width: 95%;
+  gap: 10px;
+  width: 80%;
 }
 
 .navLogoutContainer {
   display: flex;
-  width: 5%;
+  justify-content: right;
+  width: 10%;
+}
+
+/* .navLinksContainer > * {
+  color: greenyellow;
+} */
+
+.navLinksContainer > * {
+  text-decoration: none;
+  display: inline-block;
+  position: relative;
+  color: greenyellow;
+  font-size: 20px;
+}
+
+/* animation entrance */
+.navLinksContainer > *:hover:after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+/* animation exit */
+.navLinksContainer > *:after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: greenyellow;
+  transform-origin: bottom left;
+  transition: transform 0.25s ease-out;
+}
+
+.logoutBtn {
+  color: white;
+  border: none;
+  font-size: 20px;
+  background-color: inherit;
+  cursor: pointer;
 }

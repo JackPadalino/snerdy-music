@@ -21,12 +21,15 @@ const Nav = () => {
     <>
       {token && (
         <div className="navMainContainer">
+          <div className="navGhostContainer"></div>
           <div className="navLinksContainer">
             <Link to="/upload">Upload</Link>
             <Link to="/music">Music</Link>
           </div>
           <div className="navLogoutContainer">
-            <button onClick={logout}>Logout</button>
+            <button onClick={logout} className="logoutBtn">
+              Logout
+            </button>
           </div>
         </div>
       )}
