@@ -1,0 +1,24 @@
+.loginMainContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.loginNoTokenContainer {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 15%;
+}
+
+.loginTokenContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.loginNoTokenTitle {
+  text-align: center;
+}
+
+.loginTokenTitle {
+  text-align: center;
+}

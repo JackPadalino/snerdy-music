@@ -1,5 +1,16 @@
-/* #Nav-div {
+.navMainContainer {
+  display: flex;
+  justify-content: right;
+}
+
+.navLinksContainer {
   display: flex;
   justify-content: center;
-  gap: 10px;
-} */
+  background-color: red;
+  width: 95%;
+}
+
+.navLogoutContainer {
+  display: flex;
+  width: 5%;
+}

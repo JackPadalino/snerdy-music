@@ -18,15 +18,19 @@ const Nav = () => {
   };
 
   return (
-    <div id="Nav-div">
+    <>
       {token && (
-        <div>
-          <Link to="/upload">Upload</Link>
-          <Link to="/music">Music</Link>
-          <button onClick={logout}>Logout</button>
+        <div className="navMainContainer">
+          <div className="navLinksContainer">
+            <Link to="/upload">Upload</Link>
+            <Link to="/music">Music</Link>
+          </div>
+          <div className="navLogoutContainer">
+            <button onClick={logout}>Logout</button>
+          </div>
         </div>
       )}
-    </div>
+    </>
   );
 };
 

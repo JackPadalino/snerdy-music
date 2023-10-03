@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { setUser } from "../../store/userSlice";
 import { setAllSongs, setSongs } from "../../store/songsSlice";
 import axios from "axios";
+import "./Login.css";
 
 const Login = () => {
   const token = window.localStorage.getItem("token");
@@ -59,10 +60,10 @@ const Login = () => {
   };
 
   return (
-    <div>
+    <div className="login loginMainContainer">
       {!token && (
-        <>
-          <h1>Login</h1>
+        <div className="loginNoTokenContainer">
+          <h1 className="loginNoTokenTitle">Login</h1>
           <form onSubmit={attemptLogin}>
             <input
               placeholder="username"
@@ -73,12 +74,18 @@ const Login = () => {
             <input
               placeholder="password"
               name="password"
+              type="password"
               value={credentials.password}
               onChange={onChange}
             />
             <button>Login</button>
           </form>
-        </>
+        </div>
+      )}
+      {token && (
+        <div className="logiTokenContainer">
+          <h1 className="loginTokenTitle">Welcome to Snerdy Music</h1>
+        </div>
       )}
     </div>
   );
