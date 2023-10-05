@@ -48,28 +48,29 @@ const Home = () => {
       <h1 className="uploadTitle">Upload music</h1>
       <div>
         <form id="form" onSubmit={uploadFiles} encType="multipart/form-data">
-          <div className="input-group">
-            <input
-              id="title"
-              name="title"
-              type="text"
-              // value="Song title"
-              onChange={handleTitleChange}
-            />
-            <input
-              id="artist"
-              name="artist"
-              type="text"
-              // value="Artist"
-              onChange={handleArtistChange}
-            />
-            <input
-              id="file"
-              name="file"
-              type="file"
-              onChange={handleFileChange}
-            />
-          </div>
+          <input
+            id="title"
+            className="songInfoInput"
+            name="title"
+            type="text"
+            placeholder="Song title"
+            onChange={handleTitleChange}
+          />
+          <input
+            id="artist"
+            className="songInfoInput"
+            name="artist"
+            type="text"
+            placeholder="Artist"
+            onChange={handleArtistChange}
+          />
+          <input
+            id="file"
+            className="songFileInput"
+            name="file"
+            type="file"
+            onChange={handleFileChange}
+          />
           <button className="submit-btn" type="submit">
             Upload
           </button>
