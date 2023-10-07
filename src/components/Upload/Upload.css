@@ -2,14 +2,14 @@
   color: greenyellow;
 }
 
-form {
+#uploadForm {
   padding: 0px;
   margin: 0px;
   display: flex;
   gap: 10px;
 }
 
-input {
+#uploadForm > input {
   width: 33%;
   margin: 0px;
 }

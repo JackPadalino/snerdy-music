@@ -47,7 +47,11 @@ const Home = () => {
     <div className="uploadMainContainer">
       <h1 className="uploadTitle">Upload music</h1>
       <div>
-        <form id="form" onSubmit={uploadFiles} encType="multipart/form-data">
+        <form
+          id="uploadForm"
+          onSubmit={uploadFiles}
+          encType="multipart/form-data"
+        >
           <input
             id="title"
             className="songInfoInput"

@@ -64,7 +64,7 @@ const Login = () => {
       {!token && (
         <div className="loginNoTokenContainer">
           <h1 className="loginNoTokenTitle">Login</h1>
-          <form onSubmit={attemptLogin}>
+          <form className="loginForm" onSubmit={attemptLogin}>
             <input
               placeholder="Username"
               value={credentials.username}
