@@ -1,3 +1,18 @@
-.downloadButton {
+.songList {
+  width: 25%;
+}
+
+li {
+  color: greenyellow;
+  display: flex;
+  gap: 15px;
+  justify-content: space-between;
+}
+
+.buyBtn {
+  color: white;
+  border: none;
+  text-decoration: underline;
+  background-color: inherit;
   cursor: pointer;
 }
