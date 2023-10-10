@@ -14,8 +14,44 @@ const Music = () => {
   const token = window.localStorage.getItem("token");
   const dispatch = useAppDispatch();
   const songs = useAppSelector((state) => state.songs.allSongs);
+  const userInfo = useAppSelector((state) => state.user.userInfo);
 
   const [hoveredSongId, setHoveredSongId] = useState<string | null>(null);
+
+  const downloadSong = async (
+    songId: string,
+    userId: string,
+    songTitle: string,
+    songArtist: string
+  ) => {
+    try {
+      // Send a GET request to the server to download the song
+      const response = await axios.get(
+        `/api/songs/${songId}/download/${userId}`,
+        {
+          // Set the response type to blob
+          responseType: "blob",
+        }
+      );
+      // Create a Blob URL from the response data
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      // Create an <a> element to initiate the download
+      const link = document.createElement("a");
+      link.href = url;
+      // Set the "download" attribute and filename for the download
+      link.setAttribute("download", `${songArtist} - ${songTitle}.mp3`); // Set the desired filename
+      // Append the <a> element to the DOM and trigger a click event
+      document.body.appendChild(link);
+      link.click();
+      // Cleanup: Remove the <a> element and revoke the Blob URL
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+      dispatch(resetReduxSong());
+      dispatch(resetStripeSessionId());
+    } catch (error) {
+      console.error("Error downloading song:", error);
+    }
+  };
 
   const checkout = async (
     songId: string,
@@ -70,7 +106,8 @@ const Music = () => {
               <button
                 className="buyBtn"
                 onClick={() =>
-                  checkout(song.id, song.title, song.artist, song.filepath)
+                  // checkout(song.id, song.title, song.artist, song.filepath)
+                  downloadSong(song.id, userInfo.id, song.title, song.artist)
                 }
               >
                 buy track
