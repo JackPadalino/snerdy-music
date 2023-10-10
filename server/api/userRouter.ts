@@ -18,4 +18,15 @@ router.get(
   }
 );
 
+// GET /api/users/userId - Get all songs associated with a particular user
+router.get("/", async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const users = await User.findAll();
+    if (users) res.send(users);
+  } catch (err) {
+    res.sendStatus(404);
+    next(err);
+  }
+});
+
 export default router;
