@@ -2,6 +2,7 @@ import React, { useRef } from "react";
 import axios from "axios";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { setAllSongs } from "../../store/songsSlice";
+import "./Upload.css";
 
 const Home = () => {
   const token = window.localStorage.getItem("token");
@@ -43,33 +44,37 @@ const Home = () => {
 
   if (!token) return <p>Sorry! Something went wrong!</p>;
   return (
-    <div>
-      <h1>Upload music</h1>
+    <div className="uploadMainContainer">
+      <h1 className="uploadTitle">Upload music</h1>
       <div>
-        <form id="form" onSubmit={uploadFiles} encType="multipart/form-data">
-          <div className="input-group">
-            <label htmlFor="title">Song title</label>
-            <input
-              id="title"
-              name="title"
-              type="text"
-              onChange={handleTitleChange}
-            />
-            <label htmlFor="artist">Artist</label>
-            <input
-              id="artist"
-              name="artist"
-              type="text"
-              onChange={handleArtistChange}
-            />
-            <label htmlFor="file">Select file</label>
-            <input
-              id="file"
-              name="file"
-              type="file"
-              onChange={handleFileChange}
-            />
-          </div>
+        <form
+          id="uploadForm"
+          onSubmit={uploadFiles}
+          encType="multipart/form-data"
+        >
+          <input
+            id="title"
+            className="songInfoInput"
+            name="title"
+            type="text"
+            placeholder="Song title"
+            onChange={handleTitleChange}
+          />
+          <input
+            id="artist"
+            className="songInfoInput"
+            name="artist"
+            type="text"
+            placeholder="Artist"
+            onChange={handleArtistChange}
+          />
+          <input
+            id="file"
+            className="songFileInput"
+            name="file"
+            type="file"
+            onChange={handleFileChange}
+          />
           <button className="submit-btn" type="submit">
             Upload
           </button>

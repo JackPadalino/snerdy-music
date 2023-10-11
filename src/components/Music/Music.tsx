@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
 import songType from "../../../types/songType";
@@ -14,6 +14,8 @@ const Music = () => {
   const token = window.localStorage.getItem("token");
   const dispatch = useAppDispatch();
   const songs = useAppSelector((state) => state.songs.allSongs);
+
+  const [hoveredSongId, setHoveredSongId] = useState<string | null>(null);
 
   const checkout = async (
     songId: string,
@@ -52,20 +54,28 @@ const Music = () => {
   }, []);
 
   if (!token) return <p>Sorry! Something went wrong!</p>;
+
   return (
     <div>
       <h1>Songs for download</h1>
-      <ul>
+      <ul className="songList">
         {songs.map((song: songType) => (
-          <li key={song.id}>
+          <li
+            key={song.id}
+            onMouseEnter={() => setHoveredSongId(song.id)}
+            onMouseLeave={() => setHoveredSongId(null)}
+          >
             {song.artist} - {song.title}
-            <button
-              onClick={() =>
-                checkout(song.id, song.title, song.artist, song.filepath)
-              }
-            >
-              Buy
-            </button>
+            {hoveredSongId === song.id && (
+              <button
+                className="buyBtn"
+                onClick={() =>
+                  checkout(song.id, song.title, song.artist, song.filepath)
+                }
+              >
+                buy track
+              </button>
+            )}
           </li>
         ))}
       </ul>

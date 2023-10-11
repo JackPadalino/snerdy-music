@@ -1,0 +1,42 @@
+.uploadTitle {
+  color: greenyellow;
+}
+
+#uploadForm {
+  padding: 0px;
+  margin: 0px;
+  display: flex;
+  gap: 10px;
+}
+
+#uploadForm > input {
+  width: 33%;
+  margin: 0px;
+}
+
+.songInfoInput {
+  height: 30px;
+  background-color: white;
+  border: none;
+  border-radius: 3px;
+  padding-left: 5px;
+}
+
+.songFileInput {
+  border-radius: 3px;
+  border: none;
+  background-color: inherit;
+  padding: 0px;
+  color: greenyellow;
+}
+
+.submit-btn {
+  margin: 0px;
+  width: 33%;
+  background-color: greenyellow;
+  color: black;
+  border-radius: 3px;
+  border: none;
+  height: 30px;
+  cursor: pointer;
+}

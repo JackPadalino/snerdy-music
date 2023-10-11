@@ -15,11 +15,10 @@ router.get(
       const song = await Song.findByPk(songId);
       const user = await User.findByPk(userId);
       if (song && user) {
-        const newUserSong = { userId: user.id, songId: song.id };
         await UserSongs.create({
           id: uuidv4(),
-          userId: user.id,
           songId: song.id,
+          userId: user.id,
         });
         const filePath = path.join(__dirname, "../..", song.filepath);
         res.download(filePath, `${song.title}.mp3`); // Set the desired filename
@@ -27,6 +26,7 @@ router.get(
         res.sendStatus(404);
       }
     } catch (err) {
+      console.error(err);
       res.sendStatus(500);
     }
   }

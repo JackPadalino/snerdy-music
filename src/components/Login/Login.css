@@ -1,0 +1,47 @@
+.loginMainContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.loginNoTokenContainer {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 15%;
+}
+
+.loginTokenContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.loginNoTokenTitle {
+  text-align: center;
+  color: greenyellow;
+}
+
+.loginTokenTitle {
+  text-align: center;
+  color: greenyellow;
+}
+
+.loginBtn {
+  background-color: greenyellow;
+  color: black;
+  border-radius: 3px;
+  border: none;
+  height: 30px;
+  /* color: white;
+  border: none;
+  font-size: 20px;
+  background-color: inherit; */
+  cursor: pointer;
+}
+
+.loginForm > input {
+  height: 30px;
+  background-color: white;
+  border: none;
+  border-radius: 3px;
+  padding-left: 5px;
+}
