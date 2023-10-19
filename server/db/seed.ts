@@ -12,6 +12,48 @@ const users: userType[] = [
 const songs: songType[] = [
   {
     id: uuidv4(),
+    title: "Intrinsic Drive",
+    artist: "Chlar",
+    filepath: "music/Intrinsic Drive.mp3",
+  },
+  {
+    id: uuidv4(),
+    title: "Echo",
+    artist: "Lars Huismann",
+    filepath: "music/Echo.mp3",
+  },
+  {
+    id: uuidv4(),
+    title: "That's The Funk Assault",
+    artist: "Funk Assault",
+    filepath: "music/That's The Funk Assault.mp3",
+  },
+  {
+    id: uuidv4(),
+    title: "Since First Grade",
+    artist: "Arman John",
+    filepath: "music/Since First Grade.mp3",
+  },
+  {
+    id: uuidv4(),
+    title: "Somba de Conga",
+    artist: "CULT",
+    filepath: "music/Somba de Conga.mp3",
+  },
+  {
+    id: uuidv4(),
+    title: "No Respect",
+    artist: "Azrael",
+    filepath: "music/No Respect.mp3",
+  },
+  {
+    id: uuidv4(),
+    title: "It's Bigger Than Hip Hop",
+    artist: "Bonz & Josh, Inc.",
+    filepath: "music/It's Bigger Than Hip Hop.mp3",
+  },
+  {
+    id: uuidv4(),
     title: "Jungle Fever",
     artist: "Ned Bennett",
     filepath: "music/Jungle Fever.mp3",
