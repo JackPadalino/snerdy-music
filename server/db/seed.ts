@@ -12,9 +12,9 @@ const users: userType[] = [
 const songs: songType[] = [
   {
     id: uuidv4(),
-    title: "Booty Shake",
-    artist: "Beau Didier",
-    filepath: "music/Booty Shake.mp3",
+    title: "Jungle Fever",
+    artist: "Ned Bennett",
+    filepath: "music/Jungle Fever.mp3",
   },
   {
     id: uuidv4(),
